@@ -1,25 +1,17 @@
-package rooms;
+package save.savedData;
 
-import map.Map;
+import java.util.List;
 
-public class Room {
-    private Map map;
+public class RoomData {
     private String roomID;
     private String name;
     private String description;
+    private MapData map;
 
-    public Room(Map map, String roomID, String name, String description) {
-        this.map = map;
+    public RoomData(String name, String description, MapData map, String roomID) {
         this.roomID = roomID;
         this.name = name;
         this.description = description;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-
-    public void setMap(Map map) {
         this.map = map;
     }
 
@@ -37,6 +29,14 @@ public class Room {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public MapData getMap() {
+        return map;
+    }
+
+    public void setMap(MapData map) {
+        this.map = map;
     }
 
     public String getRoomID() {

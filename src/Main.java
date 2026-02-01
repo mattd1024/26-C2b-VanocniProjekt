@@ -5,6 +5,7 @@ public class Main {
         System.out.println("hhhhhhhhhhhhBruh");
         Game game = new Game();
         game.runGame();
+        game.test();
 
     }
 }

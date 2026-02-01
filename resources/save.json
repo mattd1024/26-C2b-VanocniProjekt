@@ -1,0 +1,339 @@
+{
+  "rooms": [
+    {
+      "roomID": "room01",
+      "name": "Space Rig",
+      "description": "Vesmírná stanice. Zde si můžeš popovídat s trpaslíky.",
+      "map": {
+        "tiles": [
+          "········F·",
+          "··F·······",
+          "·········D",
+          "·····F····",
+          "··········"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 2
+            },
+            "state": {
+              "targetRoomID": "room02"
+            }
+          },
+          {
+            "type": "FRIENDLY",
+            "position": {
+              "x": 8,
+              "y": 0
+            },
+            "state": {
+              "name": "Filip",
+              "message": "Dole jsou pavouci, dej si na ně pozor a nezapomen, že nejsi nesmrtelný, použij na ně své zbraně!"
+            }
+          },
+          {
+            "type": "FRIENDLY",
+            "position": {
+              "x": 5,
+              "y": 3
+            },
+            "state": {
+              "name": "Karel",
+              "message": "V jeskyních se nacházejí různé rudy! Se zlatem můžes obchodovat pro zbraně, s nitrou zavolat munici a vyléčit se a morkit potřebuješ pro splnění mise."
+            }
+          },
+          {
+            "type": "FRIENDLY",
+            "position": {
+              "x": 2,
+              "y": 1
+            },
+            "state": {
+              "name": "Franta",
+              "message": "Vítej! Nacházíš se nyní na stanici a tvým ukolem je jít do jeskyní, natěžit dostatek rudy Morkite a na konci evakuovat. \n Nyní si popovídej s ostatními pro rady a až budeš připraven, dveřmi vpravo začni."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "roomID": "room02",
+      "name": "Slané hlubiny",
+      "description": "Rozlehlé slané pláně s velikým množstvím nitry.",
+      "map": {
+        "tiles": [
+          "E···N·····",
+          "####·····D",
+          "······#···",
+          "··N###····",
+          "###NNN··E·"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 1
+            },
+            "state": {
+              "targetRoomID": "room03"
+            }
+          }
+
+        ]
+      }
+    },
+    {
+      "roomID": "room03",
+      "name": "Radioaktivní zóna",
+      "description": "Jeskyně s radioaktivními stěnami. Vyskytuje se zde obchodobot a zlato.",
+      "map": {
+        "tiles": [
+          "#####G····",
+          "##G#·····D",
+          "D·····#··E",
+          "······#·E·",
+          "··S····#·D"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 1
+            },
+            "state": {
+              "targetRoomID": "room04"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 4
+            },
+            "state": {
+              "targetRoomID": "room06"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 2
+            },
+            "state": {
+              "targetRoomID": "room02"
+            }
+          }
+
+        ]
+      }
+    },
+    {
+      "roomID": "room04",
+      "name": "Ledovcová strata",
+      "description": "Zledovělá jeskyně na permafrostových deskách. Plné morkitu a glyphidů.",
+      "map": {
+        "tiles": [
+          "MM#·E··E··",
+          "··MM······",
+          "····#····D",
+          "D···#E····",
+          "······##E·"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 2
+            },
+            "state": {
+              "targetRoomID": "room05"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 3
+            },
+            "state": {
+              "targetRoomID": "room03"
+            }
+          }
+
+        ]
+      }
+    },
+    {
+      "roomID": "room05",
+      "name": "Krystalové jeskyně",
+      "description": "Biom z bezcenných krystalů. Nevelké množství všech minerálů.",
+      "map": {
+        "tiles": [
+          "E·········",
+          "M##··#····",
+          "##··#N····",
+          "D··##····D",
+          "···G###E··"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 3
+            },
+            "state": {
+              "targetRoomID": "room08"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 3
+            },
+            "state": {
+              "targetRoomID": "room04"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "roomID": "room06",
+      "name": "Pískovcové zákoutí",
+      "description": "Masivní otevřená jeskyně a hodně zlata.",
+      "map": {
+        "tiles": [
+          "##·······D",
+          "D·······##",
+          "······##··",
+          "GG···GG···",
+          "##G·GEE···"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 0
+            },
+            "state": {
+              "targetRoomID": "room07"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 1
+            },
+            "state": {
+              "targetRoomID": "room03"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "roomID": "room07",
+      "name": "Magmatické jádro",
+      "description": "Rozžhavená oblast s abundantní nitrou a morkitem.",
+      "map": {
+        "tiles": [
+          "NNN····E··",
+          "····###··D",
+          "···#E·····",
+          "D··#M·····",
+          "····MM····"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 9,
+              "y": 1
+            },
+            "state": {
+              "targetRoomID": "room08"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 3
+            },
+            "state": {
+              "targetRoomID": "room06"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "roomID": "room08",
+      "name": "Evakuační platforma",
+      "description": "Finální místnost. Pokud máš dostatek morkitu, tak můžeš pomocí komandu evakuovat.",
+      "map": {
+        "tiles": [
+          "##########",
+          "D········#",
+          "#········#",
+          "D········#",
+          "##########"
+        ],
+        "overwrites": [
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 1
+            },
+            "state": {
+              "targetRoomID": "room05"
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 0,
+              "y": 3
+            },
+            "state": {
+              "targetRoomID": "room07"
+            }
+          }
+        ]
+      }
+    }
+
+  ],
+  "player": {
+    "health": 100,
+    "position": {
+      "actualRoomID": "room01",
+      "x": 0,
+      "y": 2
+    },
+    "inventory": {
+      "weapons": [
+        {
+          "name": "pickaxe",
+          "range": 1,
+          "damage": 40
+        }
+      ],
+      "nitra": 0,
+      "gold": 0,
+      "morkite": 0
+    }
+  }
+}
