@@ -1,5 +1,8 @@
 package map;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map {
     MapObject[][] map;
     private int roomID;
@@ -9,16 +12,16 @@ public class Map {
     }
 
     public void printMap() {
-        // Print horizontal guide bar
+        // Vyprintime horizontalni navadeci listu
         System.out.print("  ");
         for (int i = 0; i < map[0].length; i++) {
             System.out.print(formatGuideNum(i));
         }
         System.out.println();
 
-        // Print map
+        // Vyprintime mapu
         for (int row = 0; row < map.length; row++) {
-            System.out.print((row) + " "); // Print vertical guide bar
+            System.out.print((row) + " "); // Vyprintime vertikalni navadeci listu
             for (int col = 0; col < map[0].length; col++) {
                 MapObject mapObject = map[row][col];
                 System.out.print(mapObject.getIcon());
@@ -40,16 +43,49 @@ public class Map {
         }
     }
 
-    public boolean canSee(MapObject mo1, MapObject mo2) {
+    public boolean isWalkableAt(int x, int y) {
+        if (map[y][x].isWalkable()) {
+            return true;
+        }
         return false;
     }
 
-    public boolean isInRange(MapObject mo1, MapObject mo2, int range) {
-        return false;
+    public ArrayList<MapObject> getMapObjectsInBetween(int x1, int y1, int x2, int y2) {
+        ArrayList<MapObject> objectsBetween = new ArrayList<>();
+
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+
+        int steps = Math.max(Math.abs(dx), Math.abs(dy));
+        if (steps == 0) return objectsBetween;
+
+        float stepX = dx / (float) steps;
+        float stepY = dy / (float) steps;
+
+        float currentX = x1;
+        float currentY = y1;
+
+        for (int i = 1; i < steps; i++) {
+            currentX += stepX;
+            currentY += stepY;
+            int cx = Math.round(currentX);
+            int cy = Math.round(currentY);
+            if (cy >= 0 && cy < map.length &&
+                    cx >= 0 && cx < map[0].length) {
+                objectsBetween.add(map[cy][cx]);
+            }
+        }
+
+        return objectsBetween;
     }
+
 
     public void addMapObject(int row, int col, MapObject mo) {
         map[row][col] = mo;
+    }
+
+    public MapObject getMapObject(int row, int col) {
+        return map[row][col];
     }
 
     public MapObject[][] getMap() {

@@ -18,6 +18,23 @@ public class RoomManager {
         rooms.add(room);
     }
 
+    public Room getRoomByID(String roomID) {
+        for (Room room : rooms) {
+            if (room.getRoomID().equals(roomID)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public void printActiveRoom() {
+        for (Room room : rooms) {
+            if (room.getRoomID().equals(currentRoomID)) {
+                room.getMap().printMap();
+            }
+        }
+    }
+
     public ArrayList<Room> getRooms() {
         return rooms;
     }

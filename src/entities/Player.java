@@ -10,6 +10,7 @@ public class Player extends Entity{
     private String actualRoomID;
 
     public Player() {
+        description = "Hrac: tohle jses ty :D";
         icon = Colors.CYAN+"P "+ Colors.RESET;
         inventory = new Inventory();
     }

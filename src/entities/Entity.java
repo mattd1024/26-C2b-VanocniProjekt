@@ -7,7 +7,7 @@ public class Entity extends MapObject {
     protected int health;
 
     public void takeDamage(int dmgAmount) {
-
+        health -= dmgAmount;
     }
 
     public void move(int x, int y) {

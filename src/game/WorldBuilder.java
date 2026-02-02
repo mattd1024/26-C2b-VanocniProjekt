@@ -79,8 +79,9 @@ public class WorldBuilder {
             String weaponName = weaponData.getName();
             int range = weaponData.getRange();
             int damage = weaponData.getDamage();
+            int weaponConsumption = weaponData.getAmmoConsumption();
 
-            Weapon newWeapon = new Weapon(weaponName, range, damage);
+            Weapon newWeapon = new Weapon(weaponName, range, damage, weaponConsumption);
             newPlayer.getInventory().addWeapon(newWeapon);
         }
 
@@ -140,7 +141,7 @@ public class WorldBuilder {
             case 'M':
                 return mapObject = new OreNode(MORKITE);
             case 'R':
-                return mapObject = new Resupply();
+                return mapObject = new Resupply(100, 100);
             case 'D':
                 return mapObject = new Door();
             case 'F':
@@ -164,7 +165,9 @@ public class WorldBuilder {
                 return newMapObject = new Enemy(health);
             case DOOR:
                 String targetRoomID = overwrite.getState().get("targetRoomID").toString();
-                return newMapObject = new Door(targetRoomID);
+                int targetX = (int)(double) overwrite.getState().get("targetX");
+                int targetY = (int)(double) overwrite.getState().get("targetY");
+                return newMapObject = new Door(targetRoomID, targetX, targetY);
             case ORENODE:
                 OreNode.MineralType mineralType = OreNode.MineralType.valueOf(overwrite.getState().get("mineralType").toString());
                 int amountOfOre = (int)(double) overwrite.getState().get("amountOfOre");

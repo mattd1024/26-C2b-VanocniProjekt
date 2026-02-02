@@ -6,13 +6,14 @@ public class MapObject {
     protected String icon;
     protected boolean isWalkable;
     protected boolean isSeeThrough;
+    protected String description;
 
     public boolean isWalkable() {
-        return false;
+        return isWalkable;
     }
 
     public boolean isSeeThrough() {
-        return false;
+        return isSeeThrough;
     }
 
     public String getIcon() {
@@ -33,5 +34,13 @@ public class MapObject {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

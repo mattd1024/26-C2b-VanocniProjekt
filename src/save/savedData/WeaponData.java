@@ -4,11 +4,13 @@ public class WeaponData {
     private String name;
     private int range;
     private int damage;
+    private int ammoConsumption;
 
-    public WeaponData(String name, int range, int damage) {
+    public WeaponData(String name, int range, int damage,  int ammoConsumption) {
         this.name = name;
         this.range = range;
         this.damage = damage;
+        this.ammoConsumption = ammoConsumption;
     }
 
     public int getRange() {
@@ -33,5 +35,13 @@ public class WeaponData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAmmoConsumption() {
+        return ammoConsumption;
+    }
+
+    public void setAmmoConsumption(int ammoConsumption) {
+        this.ammoConsumption = ammoConsumption;
     }
 }

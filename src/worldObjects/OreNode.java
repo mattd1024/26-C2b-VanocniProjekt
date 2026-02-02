@@ -14,8 +14,8 @@ public class OreNode extends MapObject {
     }
 
     public OreNode() {
-        isWalkable = true;
-        isSeeThrough = true;
+        isWalkable = false;
+        isSeeThrough = false;
         amount = 40;
     }
 
@@ -25,12 +25,15 @@ public class OreNode extends MapObject {
         switch (mineralType) {
             case NITRA:
                 icon = Colors.RED+"O "+Colors.RESET;
+                description = "Nitra: muzes vytezit pro privolani zasobovaci rakety";
                 break;
             case GOLD:
                 icon = Colors.YELLOW+"O "+Colors.RESET;
+                description = "Zlato: muzes vytezit pro moznost koupit si zbrane u obchodobota";
                 break;
             case MORKITE:
                 icon = Colors.BLUE+"O "+Colors.RESET;
+                description = "Morkite: muzes vytezit pro splneni mise";
                 break;
         }
     }
@@ -45,5 +48,21 @@ public class OreNode extends MapObject {
         int mined = Math.min(amount, this.amount);
         this.amount -= mined;
         return mined;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public MineralType getMineralType() {
+        return mineralType;
+    }
+
+    public void setMineralType(MineralType mineralType) {
+        this.mineralType = mineralType;
     }
 }

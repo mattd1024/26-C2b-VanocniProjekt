@@ -10,23 +10,38 @@ public class Inventory {
     private int GoldAmount;
     private int MorkiteAmount;
     private ArrayList<Weapon> weapons = new ArrayList<>();
+    private String activeWeapon;
+    private int Ammo;
 
     public void addMineral(OreNode.MineralType mineralType, int amount) {
         switch (mineralType) {
             case NITRA:
-                NitraAmount = amount;
+                NitraAmount += amount;
                 break;
                 case GOLD:
-                GoldAmount = amount;
+                GoldAmount += amount;
                 break;
                 case MORKITE:
-                MorkiteAmount = amount;
+                MorkiteAmount += amount;
                 break;
         }
     }
 
     public void addWeapon(Weapon weapon) {
         weapons.add(weapon);
+    }
+
+    public Weapon getActiveWeapon() {
+        for (Weapon weapon : weapons) {
+            if (weapon.getName().equals(activeWeapon)) {
+                return weapon;
+            }
+        }
+        return null;
+    }
+
+    public String getActiveWeaponID() {
+        return activeWeapon;
     }
 
     public int getNitraAmount() {
@@ -59,5 +74,17 @@ public class Inventory {
 
     public void setWeapons(ArrayList<Weapon> weapons) {
         this.weapons = weapons;
+    }
+
+    public int getAmmo() {
+        return Ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        Ammo = ammo;
+    }
+
+    public void setActiveWeapon(String activeWeapon) {
+        this.activeWeapon = activeWeapon;
     }
 }

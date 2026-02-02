@@ -5,6 +5,7 @@ public enum overwriteType {
     DOOR,
     ORENODE,
     RESUPPLY,
-    FRIENDLY
+    FRIENDLY,
+    SHOPBOT
 }
 

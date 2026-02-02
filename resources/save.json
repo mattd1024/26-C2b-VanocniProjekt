@@ -20,7 +20,9 @@
               "y": 2
             },
             "state": {
-              "targetRoomID": "room02"
+              "targetRoomID": "room02",
+              "targetX": 0,
+              "targetY": 3
             }
           },
           {
@@ -79,7 +81,9 @@
               "y": 1
             },
             "state": {
-              "targetRoomID": "room03"
+              "targetRoomID": "room03",
+              "targetX": 1,
+              "targetY": 3
             }
           }
 
@@ -106,7 +110,9 @@
               "y": 1
             },
             "state": {
-              "targetRoomID": "room04"
+              "targetRoomID": "room04",
+              "targetX": 1,
+              "targetY": 4
             }
           },
           {
@@ -116,7 +122,9 @@
               "y": 4
             },
             "state": {
-              "targetRoomID": "room06"
+              "targetRoomID": "room06",
+              "targetX": 1,
+              "targetY": 3
             }
           },
           {
@@ -126,10 +134,11 @@
               "y": 2
             },
             "state": {
-              "targetRoomID": "room02"
+              "targetRoomID": "room02",
+              "targetX": 8,
+              "targetY": 1
             }
           }
-
         ]
       }
     },
@@ -153,7 +162,9 @@
               "y": 2
             },
             "state": {
-              "targetRoomID": "room05"
+              "targetRoomID": "room05",
+              "targetX": 1,
+              "targetY": 3
             }
           },
           {
@@ -163,7 +174,9 @@
               "y": 3
             },
             "state": {
-              "targetRoomID": "room03"
+              "targetRoomID": "room03",
+              "targetX": 1,
+              "targetY": 3
             }
           }
 
@@ -190,7 +203,9 @@
               "y": 3
             },
             "state": {
-              "targetRoomID": "room08"
+              "targetRoomID": "room08",
+              "targetX": 1,
+              "targetY": 3
             }
           },
           {
@@ -200,7 +215,9 @@
               "y": 3
             },
             "state": {
-              "targetRoomID": "room04"
+              "targetRoomID": "room04",
+              "targetX": 1,
+              "targetY": 3
             }
           }
         ]
@@ -226,7 +243,9 @@
               "y": 0
             },
             "state": {
-              "targetRoomID": "room07"
+              "targetRoomID": "room07",
+              "targetX": 1,
+              "targetY": 3
             }
           },
           {
@@ -236,7 +255,9 @@
               "y": 1
             },
             "state": {
-              "targetRoomID": "room03"
+              "targetRoomID": "room03",
+              "targetX": 1,
+              "targetY": 3
             }
           }
         ]
@@ -262,7 +283,9 @@
               "y": 1
             },
             "state": {
-              "targetRoomID": "room08"
+              "targetRoomID": "room08",
+              "targetX": 1,
+              "targetY": 3
             }
           },
           {
@@ -272,7 +295,9 @@
               "y": 3
             },
             "state": {
-              "targetRoomID": "room06"
+              "targetRoomID": "room06",
+              "targetX": 1,
+              "targetY": 3
             }
           }
         ]
@@ -298,7 +323,9 @@
               "y": 1
             },
             "state": {
-              "targetRoomID": "room05"
+              "targetRoomID": "room05",
+              "targetX": 1,
+              "targetY": 3
             }
           },
           {
@@ -308,7 +335,9 @@
               "y": 3
             },
             "state": {
-              "targetRoomID": "room07"
+              "targetRoomID": "room07",
+              "targetX": 1,
+              "targetY": 3
             }
           }
         ]
@@ -324,14 +353,16 @@
       "y": 2
     },
     "inventory": {
+      "activeWeapon": "Pickaxe",
       "weapons": [
         {
-          "name": "pickaxe",
+          "name": "Pickaxe",
           "range": 1,
-          "damage": 40
+          "damage": 40,
+          "ammmoConsumption": 0
         }
       ],
-      "nitra": 0,
+      "nitra": 80,
       "gold": 0,
       "morkite": 0
     }

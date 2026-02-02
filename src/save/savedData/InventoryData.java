@@ -1,11 +1,14 @@
 package save.savedData;
 
+import inventory.items.Weapon;
+
 public class InventoryData {
     private WeaponData[] weapons;
 //    private MineralData minerals;
     private int nitra;
     private int gold;
     private int morkite;
+    private String activeWeapon;
 
 
     public InventoryData(WeaponData[] weapons, int nitra, int gold, int morkite) {
@@ -22,7 +25,6 @@ public class InventoryData {
     public void setWeapons(WeaponData[] weapons) {
         this.weapons = weapons;
     }
-
 
     public int getNitra() {
         return nitra;
