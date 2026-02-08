@@ -26,8 +26,7 @@ public class ResupplyCommand implements Command {
     public void execute() {
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 
@@ -36,8 +35,7 @@ public class ResupplyCommand implements Command {
             inventory.setNitraAmount(inventory.getNitraAmount() - 80);
             map.addMapObject(y, x, new Resupply(100, 100));
         } else {
-            System.out.println("Nemas dostatek nitry, potrebujes minimalne 80");
-            Console.printEnter();
+            Console.printError("Nemas dostatek nitry, potrebujes minimalne 80");
         }
     }
 }

@@ -22,8 +22,7 @@ public class ExploreCommand implements Command {
     public void execute() {
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 

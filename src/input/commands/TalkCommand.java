@@ -28,8 +28,7 @@ public class TalkCommand implements Command {
     public void execute() {
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 
@@ -39,16 +38,14 @@ public class TalkCommand implements Command {
 
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
-            System.out.println("Jsi moc daleko od entity");
-            Console.printEnter();
+            Console.printError("Jsi moc daleko od entity");
             return;
         }
 
         // Vezmeme entitu a zjistime jestli existuje
         Entity entity = (Entity) map.getMapObject(y, x);
         if (entity == null) {
-            System.out.println("Zde neni entita");
-            Console.printEnter();
+            Console.printError("Zde neni entita");
             return;
         }
 
@@ -60,8 +57,7 @@ public class TalkCommand implements Command {
             if (entity instanceof ShopBot) {
                 ((ShopBot) entity).talk(player);
             } else {
-                System.out.println("S touto entitou nelze mluvit");
-                Console.printEnter();
+                Console.printError("S timhle nemuzes mluvit");
             }
         }
     }

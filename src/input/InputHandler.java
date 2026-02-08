@@ -18,7 +18,7 @@ public class InputHandler {
      * @param input String input
      * @param player Player player
      * @param roomManager RoomManager roomManager
-     * @return
+     * @return Command
      */
     public Command parseCommand(String input, Player player, RoomManager roomManager) {
         // Pripravime potrebne argumenty aby mohly byt predany komandum
@@ -47,28 +47,52 @@ public class InputHandler {
             // Procesujeme dalsi komandy
         switch(keyword) {
             case "attack":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new AttackCommand(args, map, player);
             case "collect":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new CollectCommand(args, player, map);
             case "door":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new DoorCommand(args, roomManager, player);
             case "end":
                 return new EndCommand();
             case "explore":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new ExploreCommand(args, map);
             case "help":
                 return new HelpCommand();
             case "inventory":
                 return new InventoryCommand(inventory);
             case "mine":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new MineCommand(args, map, player);
             case "resupply":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new ResupplyCommand(args, inventory, map);
             case "room":
                 return new RoomCommand(roomManager, player);
             case "setweapon":
+                if (!validateArgsLength(args, 1)) {
+                    return null;
+                }
                 return new SetWeaponCommand(args, inventory);
             case "talk":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
                 return new TalkCommand(args, map, player);
             default:
                 return null;
@@ -80,9 +104,9 @@ public class InputHandler {
      * @param input String input
      * @param player Player player
      * @param map Map map
-     * @return
+     * @return Command
      */
-    public Command parseMove(String input, Player player, Map map) {
+    public MoveCommand parseMove(String input, Player player, Map map) {
         // Zpracujeme move komand
         if ((input.length() <= 3) && (input.startsWith("w") || input.startsWith("a")  || input.startsWith("s") || input.startsWith("d"))) {
             List<Character> moves = new ArrayList<>(input.length());
@@ -95,5 +119,23 @@ public class InputHandler {
             return new MoveCommand(player, moves, map);
         }
         return null;
+    }
+
+    public boolean validateIntArgs(String[] args) {
+        for (String arg : args) {
+            try {
+                Integer.parseInt(arg);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateArgsLength(String[] args, int expectedCount) {
+        if (args.length != expectedCount) {
+            return false;
+        }
+        return true;
     }
 }

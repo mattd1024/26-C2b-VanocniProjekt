@@ -24,7 +24,7 @@ public class RoomCommand implements Command {
         // Vyprintime nazev a deskripci mistnosti ve ktere je hrac
         Room actualRoom = roomManager.getRoomByID(player.getActualRoomID());
         System.out.println("Jsi v mistnosti: " + actualRoom.getName());
-        System.out.println("    " + actualRoom.getDescription());
+        System.out.println(" >> " + actualRoom.getDescription());
         Console.printEnter();
 
     }

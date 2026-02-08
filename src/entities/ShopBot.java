@@ -29,11 +29,11 @@ public class ShopBot extends Entity{
      * @param player Player player
      */
     public void talk(Player player) {
-        System.out.println("Vitej v mem obchode! Zadej jmeno produktu, ktery chces zakoupit:");
+        Console.printColorMessage("Vitej v mem obchode! Zadej jmeno produktu, ktery chces zakoupit >>", Colors.GREEN);
 
         // Printime zbrane ktere bot ma
         for (Weapon weapon : shop) {
-            System.out.println(weapon);
+            System.out.println(" " + weapon);
         }
 
         // Ziskame input od hrace
@@ -47,16 +47,16 @@ public class ShopBot extends Entity{
                     player.getInventory().addWeapon(weapon);
                     player.getInventory().setGoldAmount(player.getInventory().getGoldAmount() - weapon.getCost());
                     shop.remove(i);
-                    System.out.println("Dekuji za tve obchodovani");
+                    Console.printColorMessage("Dekuji za tve obchodovani", Colors.GREEN);
                     Console.printEnter();
                 } else {
-                    System.out.println("Na tohle nemas dostatek penez!");
+                    Console.printColorMessage("Na tohle nemas dostatek penez!", Colors.RED);
                     Console.printEnter();
                 }
                 return;
             }
         }
-        System.out.println("Tohle tady nemam");
+        Console.printColorMessage("Tohle tady nemam!", Colors.RED);
         Console.printEnter();
     }
 }

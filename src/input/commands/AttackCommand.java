@@ -2,6 +2,7 @@ package input.commands;
 
 import entities.Enemy;
 import entities.Player;
+import game.Colors;
 import game.Console;
 import input.Command;
 import inventory.items.Weapon;
@@ -31,16 +32,14 @@ public class AttackCommand implements Command {
     public void execute() {
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 
         // Je zde nepritel
         MapObject mapObject = map.getMapObject(y, x);
         if (!(mapObject instanceof Enemy)) {
-            System.out.println("Zde neni nepritel");
-            Console.printEnter();
+            Console.printError("Zde neni nepritel");
             return;
         }
 
@@ -49,8 +48,7 @@ public class AttackCommand implements Command {
         // Ma hrac vybranou primarni zbran
         String activeWeaponID = player.getInventory().getActiveWeaponID();
         if (activeWeaponID == null) {
-            System.out.println("Nemas vybranou primarni zbran");
-            Console.printEnter();
+            Console.printError("Nemas vybranou primarni zbran");
             return;
         }
         Weapon activeWeapon = player.getInventory().getActiveWeapon();
@@ -61,29 +59,29 @@ public class AttackCommand implements Command {
         int distance = Math.max(dx, dy);
 
         if (distance > activeWeapon.getRange()) {
-            System.out.println("Nepratel je mimo dosah");
-            Console.printEnter();
+            Console.printError("Nepritel je mimo dosah");
             return;
         }
 
         // Ma hrac dostatek munice
         if (activeWeapon.getAmmoConsumption() > 0) {
             if (player.getInventory().getAmmo() < activeWeapon.getAmmoConsumption()) {
-                System.out.println("Nemas dostatek munice");
-                Console.printEnter();
+                Console.printError("Nemas dostatek munice");
                 return;
             }
         }
 
         // Zautoceni na nepratele
         target.takeDamage(activeWeapon.getDamage());
-        System.out.println("Zasahnul si nepritele za: " + activeWeapon.getDamage() + " damage");
+        Console.printColorMessage("Zasahnul si nepritele za: " + activeWeapon.getDamage() + " damage", Colors.RED);
         player.getInventory().setAmmo(player.getInventory().getAmmo() - activeWeapon.getAmmoConsumption());
 
         // Pripadne odstranit nepratele
         if (!target.isAlive()) {
             map.addMapObject(y, x, new Floor());
             System.out.println("Nepritel znicen");
+            Console.printColorMessage("Nepritel znicen!", Colors.RED);
+            Console.printEnter();
         }
         Console.printEnter();
     }

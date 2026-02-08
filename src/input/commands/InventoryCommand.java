@@ -1,5 +1,7 @@
 package input.commands;
 
+import entities.Player;
+import game.Colors;
 import game.Console;
 import input.Command;
 import inventory.Inventory;
@@ -17,15 +19,22 @@ public class InventoryCommand implements Command {
 
     @Override
     public void execute() {
-        System.out.println("Inventar: ");
-        System.out.println("    Zbrane::");
+        System.out.println("Inventar:");
+
+        // Zbrane
+        Console.printColorMessage(" Zbrane:", Colors.CYAN);
         for (Weapon weapon : inventory.getWeapons()) {
-            System.out.print("      "+weapon.toString());
+            Console.printColorMessage("  " + weapon.toString(), Colors.CYAN);
         }
+
+        // Mineraly
+        Console.printColorMessage(" Mineraly:", Colors.YELLOW);
+        Console.printColorMessage("  Nitra: " + inventory.getNitraAmount(), Colors.YELLOW);
+        Console.printColorMessage("  Zlato: " + inventory.getGoldAmount(), Colors.YELLOW);
+        Console.printColorMessage("  Morkite: " + inventory.getMorkiteAmount(), Colors.YELLOW);
+
         System.out.println();
-        System.out.println("    Mineraly:");
-        System.out.print("        Nitra: "+inventory.getNitraAmount()+" | Gold: "+inventory.getGoldAmount()+" | Morkite: "+inventory.getMorkiteAmount());
-        System.out.println();
+
         Console.printEnter();
     }
 }

@@ -1,6 +1,7 @@
 package input.commands;
 
 import entities.Player;
+import game.Colors;
 import game.Console;
 import input.Command;
 import map.Map;
@@ -27,8 +28,7 @@ public class CollectCommand implements Command {
     public void execute() {
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 
@@ -38,8 +38,7 @@ public class CollectCommand implements Command {
 
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
-            System.out.println("Jsi moc daleko od resupply");
-            Console.printEnter();
+            Console.printError("Jsi moc daleko od zasobovaci rakety");
             return;
         }
 
@@ -48,8 +47,9 @@ public class CollectCommand implements Command {
             player.setHealth(100);
             player.getInventory().setAmmo(100);
             map.addMapObject(y, x, new Floor());
+            Console.printColorMessage("Uspesne si sebral zasobovaci raketu", Colors.GREEN);
         } else {
-            System.out.println("Na tomto miste neni Resupply");
+            Console.printError("Na tomto miste neni zasobovaci raketa");
         }
     }
 }

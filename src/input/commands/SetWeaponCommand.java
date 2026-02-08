@@ -1,5 +1,7 @@
 package input.commands;
 
+import game.Colors;
+import game.Console;
 import input.Command;
 import inventory.Inventory;
 import inventory.items.Weapon;
@@ -20,11 +22,14 @@ public class SetWeaponCommand implements Command {
     public void execute() {
         // Zjistime jestli ma hrac zbran podle nazvu zbrane a pripadne nastavime jako primarni zbran hrace
         for (Weapon weapon : inventory.getWeapons()) {
-            if (weapon.getName().toLowerCase().equals(requestedWeapon)) {
+            if (weapon.getName().equalsIgnoreCase(requestedWeapon)) {
                 inventory.setActiveWeapon(weapon.getName());
-            } else {
-                System.out.println("Tuto zbran nemas");
+                Console.printColorMessage("Vybral sis aktivni zbran: " + weapon.getName(), Colors.GREEN);
+                Console.printEnter();
+                Console.printSpace();
+                return;
             }
         }
+        Console.printColorMessage("Tuto zbran nemas!", Colors.RED);
     }
 }

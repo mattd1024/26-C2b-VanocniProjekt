@@ -7,8 +7,6 @@ import input.commands.EndCommand;
 import rooms.RoomManager;
 import save.SaveData;
 
-import java.util.Scanner;
-
 /**
  * Trida Game sjednocuje vsechny herni funkce a obsahuje hlavni herni smycku
  */
@@ -19,14 +17,11 @@ public class Game {
     private SaveManager saveManager;
     private WorldBuilder worldBuilder;
     private InputHandler inputHandler;
-    private Scanner scanner;
-
     public Game() {
         isRunning = true;
         saveManager = new SaveManager();
         worldBuilder = new WorldBuilder();
         inputHandler = new InputHandler();
-        scanner = new Scanner(System.in);
     }
 
     public void runGame() {
@@ -41,21 +36,28 @@ public class Game {
 
         // Hlavni herni smycka
         while (isRunning) {
+            // Printeni zakladnich udaju a mapy
+            Console.printSpace();
+            Console.printColorMessage(
+                    "Zivoty: " + player.getHealth() + " | " +
+                    "Naboje: " + player.getInventory().getAmmo() + " | " +
+                    "Aktivni zbran: " + player.getInventory().getActiveWeaponID(), Colors.RED);
+            Console.printColorMessage("Aktivni mistnost >> " + roomManager.getCurrentRoom().getName(), Colors.YELLOW);
             roomManager.printActiveRoom();
 
-            String input;
-            System.out.println("Vstup ==>                     (pro list komandu: ,,help'')");
-            input = scanner.nextLine();
+            // Parzovani vstupu a hlavni smycka
+            Console.printColorMessage("Vstup ==>>                   (pro list komandu: ,,help'')", Colors.GREEN);
+            String input = Console.getInputFromUser();
             Command command = inputHandler.parseCommand(input, player, roomManager);
             if (command != null) {
                 if (command instanceof EndCommand) {
-                    System.out.println("Ending game!");
+                    Console.printColorMessage("Konec hry!", Colors.GREEN);
                     isRunning = false;
                     break;
                 }
                 command.execute();
             } else {
-                System.out.println("Nespravny komand");
+                Console.printError("Nespravny komand");
             }
         }
     }

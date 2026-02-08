@@ -28,8 +28,7 @@ public class MineCommand implements Command {
     public void execute() {
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 
@@ -63,5 +62,6 @@ public class MineCommand implements Command {
 
         System.out.println("Vytezil si " + mined + " rudy " + typeOfOre.toString());
         Console.printEnter();
+        Console.printSpace();
     }
 }

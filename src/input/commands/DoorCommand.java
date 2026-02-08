@@ -30,8 +30,7 @@ public class DoorCommand implements Command {
 
         // Jsou souradnice validni
         if (!map.isValidCoordinate(x, y)) {
-            System.out.println("Nespravne souradnice");
-            Console.printEnter();
+            Console.printError("Nespravne souradnice");
             return;
         }
 
@@ -41,16 +40,14 @@ public class DoorCommand implements Command {
 
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
-            System.out.println("Jsi moc daleko od dveri");
-            Console.printEnter();
+            Console.printError("Jsi moc daleko od dveri");
             return;
         }
 
         // Zkontrolujeme jestli mapObject jsou doopravdy dvere
         MapObject mapObject = map.getMapObject(y, x);
         if (!(mapObject instanceof Door)) {
-            System.out.println("Zde nejsou dvere");
-            Console.printEnter();
+            Console.printError("Zde nejsou dvere");
             return;
         }
 
@@ -65,12 +62,6 @@ public class DoorCommand implements Command {
         // Ziskame target souradnice z dveri
         int targetX = door.getTargetX();
         int targetY = door.getTargetY();
-
-        // Overime, ze cilove souradnice nejsou mimo mapu
-        if (targetY < 0 || targetY >= newMap.getGrid().length || targetX < 0 || targetX >= newMap.getGrid()[0].length) {
-            System.out.println("Cilove souradnice dveri jsou mimo mapu!");
-            return;
-        }
 
         // Presuneme hrace do nove mapy
         newMap.addMapObject(targetY, targetX, player);

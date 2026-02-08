@@ -22,8 +22,9 @@ public class Friendly extends Entity {
     }
 
     public void talk() {
-        System.out.println(name);
-        System.out.println("    " + message);
+        System.out.println();
+        Console.printColorMessage(name + " >>", Colors.GREEN);
+        System.out.println(" " + message);
         Console.printEnter();
     }
 
