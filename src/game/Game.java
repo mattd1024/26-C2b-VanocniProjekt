@@ -30,7 +30,7 @@ public class Game {
     }
 
     public void runGame() {
-        // Setup
+        // Pripraveni
         SaveData save = saveManager.loadGame("resources/save.json");
         roomManager = worldBuilder.buildRooms(save);
         player = worldBuilder.buildPlayer(save);
@@ -38,8 +38,8 @@ public class Game {
 
         // TODO dokoncit hlavni herni smycku
         // TODO zhezcit printovani do konzole
-        // TODO sjednotit jazyk
-        // Main game loop
+
+        // Hlavni herni smycka
         while (isRunning) {
             roomManager.printActiveRoom();
 
