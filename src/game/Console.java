@@ -2,6 +2,9 @@ package game;
 
 import java.util.Scanner;
 
+/**
+ * Trida Console obsahuje pomocne metody pro praci s konzoli
+ */
 public class Console {
     private static Scanner scanner = new Scanner(System.in);
 

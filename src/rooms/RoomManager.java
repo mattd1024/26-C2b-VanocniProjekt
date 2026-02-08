@@ -2,16 +2,15 @@ package rooms;
 
 import java.util.ArrayList;
 
+/**
+ * Trida RoomManager obsahuje vsechny mistnosti a spravuje je
+ */
 public class RoomManager {
     private ArrayList<Room> rooms = new ArrayList<>();
     private String currentRoomID;
 
     public RoomManager() {
         currentRoomID = "room01";
-    }
-
-    public void changeRoom() {
-
     }
 
     public void addRoom(Room room) {
@@ -33,6 +32,10 @@ public class RoomManager {
                 room.getMap().printMap();
             }
         }
+    }
+
+    public Room getCurrentRoom() {
+        return getRoomByID(currentRoomID);
     }
 
     public ArrayList<Room> getRooms() {

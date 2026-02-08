@@ -4,10 +4,12 @@ import entities.Player;
 import input.Command;
 import map.Map;
 import worldObjects.Floor;
-import worldObjects.OreNode;
 
 import java.util.List;
 
+/**
+ * MoveCommand zpracuje pohyb hrace v mape
+ */
 public class MoveCommand implements Command {
     private final Player player;
     private final List<Character> moves;
@@ -44,11 +46,11 @@ public class MoveCommand implements Command {
             }
 
             // ZJistime jestli jde pohyb ven z mapy
-            if (newY < 0 || newY >= map.getMap().length || newX < 0 || newX >= map.getMap()[0].length) {
+            if (newY < 0 || newY >= map.getGrid().length || newX < 0 || newX >= map.getGrid()[0].length) {
                 break;
             }
 
-            if (map.getMap()[newY][newX].isWalkable()) {
+            if (map.getGrid()[newY][newX].isWalkable()) {
                 map.addMapObject(newY, newX, player);
                 map.addMapObject(currentY, currentX, new Floor());
 

@@ -3,6 +3,10 @@ package worldObjects;
 import game.Colors;
 import map.MapObject;
 
+/**
+ * Trida Resupply reprezentuje zasobovaci raketu
+ * Obsahuje mnozsti naboju a zdravi
+ */
 public class Resupply extends MapObject {
     private int ammoAmount;
     private int healthAmount;

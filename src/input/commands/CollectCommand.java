@@ -7,24 +7,27 @@ import map.Map;
 import worldObjects.Floor;
 import worldObjects.Resupply;
 
+/**
+ * CollectCommand zpracuje sbirani objektu Resupply
+ */
 public class CollectCommand implements Command {
     private final int x;
     private final int y;
     private final Player player;
     private final Map map;
 
-    public CollectCommand(int x, int y, Player player, Map map) {
-        this.x = x;
-        this.y = y;
+    public CollectCommand(String[] args, Player player, Map map) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.player = player;
         this.map = map;
     }
 
     @Override
     public void execute() {
-        // Kontrolace, zda-li jsou souradnice mimo mapu
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
-            System.out.println("Nespravne koordinaty");
+        // Jsou souradnice validni
+        if (!map.isValidCoordinate(x, y)) {
+            System.out.println("Nespravne souradnice");
             Console.printEnter();
             return;
         }
@@ -41,7 +44,7 @@ public class CollectCommand implements Command {
         }
 
         // ZJistime jestli objekt na x y je resupply a pouzijeme ho
-        if (map.getMap()[y][x] instanceof Resupply) {
+        if (map.getGrid()[y][x] instanceof Resupply) {
             player.setHealth(100);
             player.getInventory().setAmmo(100);
             map.addMapObject(y, x, new Floor());

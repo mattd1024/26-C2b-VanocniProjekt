@@ -1,0 +1,191 @@
+{
+  "rooms": [
+    {
+      "roomID": "room01",
+      "name": "Space Rig",
+      "description": "Vesmírná stanice. Zd",
+      "map": {
+        "tiles": [
+          "··········",
+          "··········",
+          "··········",
+          "··········",
+          "··········"
+        ],
+        "overwrites": [
+          {
+            "type": "ENEMY",
+            "position": {
+              "x": 5,
+              "y": 4
+            },
+            "state": {
+              "health": 78
+            }
+          },
+          {
+            "type": "DOOR",
+            "position": {
+              "x": 3,
+              "y": 2
+            },
+            "state": {
+              "targetRoomID": "room02"
+            }
+          },
+          {
+            "type": "ORENODE",
+            "position": {
+              "x": 1,
+              "y": 4
+            },
+            "state": {
+              "mineralType": "MORKITE",
+              "amountOfOre": 80
+            }
+          }
+        ]
+      }
+    },
+    {
+      "roomID": "room02",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    },
+    {
+      "roomID": "room03",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    },
+    {
+      "roomID": "room04",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    },
+    {
+      "roomID": "room05",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    },
+    {
+      "roomID": "room06",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    },
+    {
+      "roomID": "room07",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    },
+    {
+      "roomID": "room08",
+      "name": "",
+      "description": "",
+      "map": {
+        "tiles": [
+          "##########",
+          "##########",
+          "##########",
+          "##########",
+          "##########"
+        ],
+        "overwrites": [
+
+        ]
+      }
+    }
+
+  ],
+  "player": {
+    "health": 100,
+    "position": {
+      "actualRoom": "room01",
+      "x": 0,
+      "y": 0
+    },
+    "inventory": {
+      "weapons": [
+        {
+          "name": "pickaxe",
+          "range": 1,
+          "damage": 40
+        }
+      ],
+      "nitra": 60,
+      "gold": 50,
+      "morkite": 30
+    }
+  }
+}

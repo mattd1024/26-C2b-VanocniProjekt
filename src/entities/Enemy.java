@@ -3,6 +3,9 @@ package entities;
 import behavior.Behavior;
 import game.Colors;
 
+/**
+ * Trida Enemy je nepritel
+ */
 public class Enemy extends Entity{
     private Behavior behavior;
 

@@ -3,6 +3,11 @@ package worldObjects;
 import game.Colors;
 import map.MapObject;
 
+/**
+ * Trida Door reprezentuje objekt dvere ve hre
+ * Obsahuje cilove ID mistnosti a cilove souradnice x a y
+ * Umoznuje se hraci pohybovat z mistnosti do mistnosti
+ */
 public class Door extends MapObject {
     private String targetRoomID;
     private int targetX;
@@ -10,7 +15,7 @@ public class Door extends MapObject {
 
     public Door() {
         targetRoomID = null;
-        description = "Dvere: kdyz do nich vstoupis pohybem tak te presunou do jine mistnosti";
+        description = "Dvere: kdyz do nich vstoupis komandem ,,door x y'' tak te presunou do jine mistnosti";
         icon = Colors.GREEN+"D "+ Colors.RESET;
         isWalkable = false;
         isSeeThrough = false;

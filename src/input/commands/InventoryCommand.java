@@ -5,6 +5,9 @@ import input.Command;
 import inventory.Inventory;
 import inventory.items.Weapon;
 
+/**
+ * InventoryCommand vypise inventar hrace
+ */
 public class InventoryCommand implements Command {
     private final Inventory inventory;
 

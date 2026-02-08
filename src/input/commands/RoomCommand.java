@@ -7,6 +7,9 @@ import map.Map;
 import rooms.Room;
 import rooms.RoomManager;
 
+/**
+ * RoomCommand vypisuje informace o aktualni mistnosti ve ktere je hrac
+ */
 public class RoomCommand implements Command {
     private final RoomManager roomManager;
     private final Player player;

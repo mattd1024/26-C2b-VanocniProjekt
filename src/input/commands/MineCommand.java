@@ -1,24 +1,25 @@
 package input.commands;
 
-import entities.Entity;
 import entities.Player;
 import game.Console;
 import input.Command;
-import inventory.Inventory;
 import map.Map;
 import map.MapObject;
 import worldObjects.Floor;
 import worldObjects.OreNode;
 
+/**
+ * MineCommand zpracuje tezeni rudy OreNode v mape
+ */
 public class MineCommand implements Command {
     private final int x;
     private final int y;
     private final Map map;
     private final Player player;
 
-    public MineCommand(int x, int y, Map map, Player player) {
-        this.x = x;
-        this.y = y;
+    public MineCommand(String[] args, Map map, Player player) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.map = map;
         this.player = player;
     }
@@ -26,8 +27,9 @@ public class MineCommand implements Command {
     @Override
     public void execute() {
         // Jsou souradnice validni
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
-            System.out.println("Nespravne koordinaty");
+        if (!map.isValidCoordinate(x, y)) {
+            System.out.println("Nespravne souradnice");
+            Console.printEnter();
             return;
         }
 

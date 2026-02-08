@@ -5,6 +5,10 @@ import inventory.Inventory;
 import inventory.items.Weapon;
 import worldObjects.OreNode;
 
+/**
+ * Trida Player je hlavni postava hrace
+ * Uzivatel za nej hraje
+ */
 public class Player extends Entity{
     private Inventory inventory;
     private String actualRoomID;

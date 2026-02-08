@@ -8,15 +8,18 @@ import game.Console;
 import input.Command;
 import map.Map;
 
+/**
+ * TalkCommand obsluhuje komunikaci mezi hracem a entitou (pouze Friendly nebo ShopBot)
+ */
 public class TalkCommand implements Command {
     private final int x;
     private final int y;
     private final Map map;
     private final Player player;
 
-    public TalkCommand(int x, int y, Map map, Player player) {
-        this.x = x;
-        this.y = y;
+    public TalkCommand(String[] args, Map map, Player player) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.map = map;
         this.player = player;
     }
@@ -24,8 +27,9 @@ public class TalkCommand implements Command {
     @Override
     public void execute() {
         // Jsou souradnice validni
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
-            System.out.println("Nespravne koordinaty");
+        if (!map.isValidCoordinate(x, y)) {
+            System.out.println("Nespravne souradnice");
+            Console.printEnter();
             return;
         }
 

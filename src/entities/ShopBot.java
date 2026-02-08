@@ -8,6 +8,10 @@ import inventory.items.Weapon;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Trida ShopBot je obchod o bot
+ * Hrac s nim muze obchodovat za zlato
+ */
 public class ShopBot extends Entity{
     ArrayList<Weapon> shop = new ArrayList<>();
 
@@ -20,15 +24,22 @@ public class ShopBot extends Entity{
         shop.add(new Weapon("Sniperka", 20, 100, 10, 80));
     }
 
+    /**
+     * Promluveni s hracem a obchod botem
+     * @param player Player player
+     */
     public void talk(Player player) {
         System.out.println("Vitej v mem obchode! Zadej jmeno produktu, ktery chces zakoupit:");
-        // Print available shop items
+
+        // Printime zbrane ktere bot ma
         for (Weapon weapon : shop) {
             System.out.println(weapon);
         }
 
-        // Get user input and try to buy item
+        // Ziskame input od hrace
         String option = Console.getInputFromUser();
+
+        // Zkusime koupit predmet
         for (int i = 0; i < shop.size(); i++) {
             Weapon weapon = shop.get(i);
             if (option.equalsIgnoreCase(weapon.getName())) {

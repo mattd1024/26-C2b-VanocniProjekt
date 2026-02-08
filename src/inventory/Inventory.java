@@ -5,6 +5,11 @@ import worldObjects.OreNode;
 
 import java.util.ArrayList;
 
+/**
+ * Inventory reprezentuji inventar hrace
+ * Obsahuje mineraly (nitra, gold, morkite)
+ * Obsahuje zbrane a naboje
+ */
 public class Inventory {
     private int NitraAmount;
     private int GoldAmount;

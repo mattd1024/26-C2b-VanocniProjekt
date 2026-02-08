@@ -1,5 +1,8 @@
 package inventory.items;
 
+/**
+ * Trida Item reprezentuje predmety
+ */
 public class Item {
     protected String name;
 

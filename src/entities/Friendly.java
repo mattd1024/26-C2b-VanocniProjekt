@@ -3,6 +3,10 @@ package entities;
 import game.Colors;
 import game.Console;
 
+/**
+ * Trida friendly je kamaradsky charakter ve hre
+ * Hrac si s nim muze popovidat
+ */
 public class Friendly extends Entity {
     private String message;
 

@@ -4,6 +4,9 @@ import game.Console;
 import input.Command;
 import map.Map;
 
+/**
+ * HelpCommand vypise vsechny mozne komandy
+ */
 public class HelpCommand implements Command {
 
     @Override

@@ -27,6 +27,7 @@ public class WorldBuilder {
 
     /**
      * Process the rooms in SaveData and return a finished RoomManager
+     * Procesuje mistnosti v SaveData objektu a vraci hotovy objekt RoomManager
      * @param save
      * @return
      */
@@ -65,6 +66,11 @@ public class WorldBuilder {
         return roomManager;
     }
 
+    /**
+     * Stavi hrace z SaveData objektu a vraci objekt Player
+     * @param save Objekt SaveData
+     * @return Player player
+     */
     public Player buildPlayer(SaveData save) {
         // Setup
         PlayerData playerData = save.getPlayer();
@@ -102,6 +108,11 @@ public class WorldBuilder {
         return newPlayer;
     }
 
+    /**
+     * Postavi hrace do spravne mistnosti
+     * @param roomManager RoomManager objekt
+     * @param player Player
+     */
     public void placePlayer(RoomManager roomManager, Player player) {
         // Put player in map
         String actualRoomID = player.getActualRoomID();
@@ -117,9 +128,9 @@ public class WorldBuilder {
     }
 
     /**
-     * Returns the appropriate MapObject (door, enemy, player...) from a letter (icon)
-     * @param letter
-     * @return
+     * Vraci spravny defaultni MapObject (dvere, nepritel, hrac...) z charu (ikonky)
+     * @param letter Char pismenko
+     * @return MapObject
      */
     public MapObject parseMapObjectFromChar(char letter) {
         MapObject mapObject;
@@ -152,9 +163,9 @@ public class WorldBuilder {
     }
 
     /**
-     * Returns a processed MapObject from an overwrite
-     * @param overwrite
-     * @return
+     * Vraci zprocesovany Mapobject z overwritu
+     * @param overwrite OverwriteData
+     * @return MapObject
      */
     public MapObject parseMapObjectFromOverwrite(OverwriteData overwrite) {
         MapObject newMapObject;

@@ -3,60 +3,85 @@ package input;
 import entities.Player;
 import game.Game;
 import input.commands.*;
+import inventory.Inventory;
 import map.Map;
 import rooms.RoomManager;
 import worldObjects.Door;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InputHandler {
-    public Command parseCommand(String input, Player player, Map map, RoomManager roomManager) {
+    /**
+     * Parzuje string input a vraci apropriatni komand objekt s parametrama
+     * @param input String input
+     * @param player Player player
+     * @param roomManager RoomManager roomManager
+     * @return
+     */
+    public Command parseCommand(String input, Player player, RoomManager roomManager) {
+        // Pripravime potrebne argumenty aby mohly byt predany komandum
+        Map map = roomManager.getCurrentRoom().getMap();
+        Inventory inventory = player.getInventory();
+
         // Osetrime input
         if (input == null) {
             return null;
         }
         input = input.trim().toLowerCase();
 
-        // Rozdelime input dle mezer
+        // Rozdelime input dle mezer: na prvni slovo keyword, a na jednotlive casti parts
         String[] parts = input.split("\\s+");
         String keyword = parts[0];
 
-        // Procesneme vstup a vratime spravny Command objekt
+        // Zkusime jestli je komand typu pohybu (ma specialni syntax bez argumentu [napr.: add, was, dd, s] a mel by se zpracovat drive nez ostatni)
         Command move = parseMove(keyword, player, map);
         if (move != null) {
             return move;
         }
+
+        // Vytahneme z parts argumenty, ty budeme predavat komandum
+        String[] args = Arrays.copyOfRange(parts, 1, parts.length);
+
+            // Procesujeme dalsi komandy
         switch(keyword) {
             case "attack":
-                return new AttackCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), map, player);
+                return new AttackCommand(args, map, player);
             case "collect":
-                return new CollectCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), player, map);
+                return new CollectCommand(args, player, map);
             case "door":
-                return new DoorCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), roomManager, player);
+                return new DoorCommand(args, roomManager, player);
             case "end":
                 return new EndCommand();
             case "explore":
-                return new ExploreCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), map);
+                return new ExploreCommand(args, map);
             case "help":
                 return new HelpCommand();
             case "inventory":
-                return new InventoryCommand(player.getInventory());
+                return new InventoryCommand(inventory);
             case "mine":
-                return new MineCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), map, player);
+                return new MineCommand(args, map, player);
             case "resupply":
-                return new ResupplyCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), player.getInventory(), map);
+                return new ResupplyCommand(args, inventory, map);
             case "room":
                 return new RoomCommand(roomManager, player);
             case "setweapon":
-                return new SetWeaponCommand(parts[1], player.getInventory());
+                return new SetWeaponCommand(args, inventory);
             case "talk":
-                return new TalkCommand(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), map, player);
+                return new TalkCommand(args, map, player);
             default:
                 return null;
         }
     }
 
+    /**
+     * Separatne parzuje komand pohybu a vraci MoveCommand
+     * @param input String input
+     * @param player Player player
+     * @param map Map map
+     * @return
+     */
     public Command parseMove(String input, Player player, Map map) {
         // Zpracujeme move komand
         if ((input.length() <= 3) && (input.startsWith("w") || input.startsWith("a")  || input.startsWith("s") || input.startsWith("d"))) {

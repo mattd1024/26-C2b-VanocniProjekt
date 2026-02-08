@@ -1,5 +1,9 @@
 package map;
 
+/**
+ * Trida MapObject je rodic vsech trid ktere se mohou vyskytovat v mape
+ * Obsahuje zakladni informace, ktere jakykoliv objekt v mape potrebuje, napr.: xy souradnice, ikona, deskripce
+ */
 public class MapObject {
     protected int x;
     protected int y;

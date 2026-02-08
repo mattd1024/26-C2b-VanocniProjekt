@@ -6,23 +6,26 @@ import inventory.Inventory;
 import map.Map;
 import worldObjects.Resupply;
 
+/**
+ * ResupplyCommand zpracuje spawnovani zasobovaci rakety v mape
+ */
 public class ResupplyCommand implements Command {
     private final int x;
     private final int y;
     private final Inventory inventory;
     private final Map map;
 
-    public ResupplyCommand(int x, int y, Inventory inventory, Map map) {
-        this.x = x;
-        this.y = y;
+    public ResupplyCommand(String[] args, Inventory inventory, Map map) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.inventory = inventory;
         this.map = map;
     }
 
     @Override
     public void execute() {
-        // Jsou sourdanice validni
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
+        // Jsou souradnice validni
+        if (!map.isValidCoordinate(x, y)) {
             System.out.println("Nespravne souradnice");
             Console.printEnter();
             return;

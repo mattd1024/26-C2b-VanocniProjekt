@@ -9,15 +9,20 @@ import map.Map;
 import map.MapObject;
 import worldObjects.Floor;
 
+import java.util.List;
+
+/**
+ * AttackCommand spravuje utok hrace na nepritele
+ */
 public class AttackCommand implements Command {
     private final int x;
     private final int y;
     private final Map map;
     private final Player player;
 
-    public AttackCommand(int x, int y, Map map, Player player) {
-        this.x = x;
-        this.y = y;
+    public AttackCommand(String[] args, Map map, Player player) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.map = map;
         this.player = player;
     }
@@ -25,7 +30,7 @@ public class AttackCommand implements Command {
     @Override
     public void execute() {
         // Jsou souradnice validni
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
+        if (!map.isValidCoordinate(x, y)) {
             System.out.println("Nespravne souradnice");
             Console.printEnter();
             return;

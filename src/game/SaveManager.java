@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
+/**
+ * Trida SaveManager obsluhuje ukladani herniho sveta
+ */
 public class SaveManager {
     private Gson gson;
 
@@ -15,9 +18,9 @@ public class SaveManager {
     }
 
     /**
-     * Loads a .json savefile and returns a SaveData object
-     * @param filePath path to file
-     * @return SaveData object
+     * Nacte .json ulozny soubor a vraci objekt typu SaveData
+     * @param filePath String cesta k souboru
+     * @return SaveData saveData
      */
     public SaveData loadGame(String filePath) {
         SaveData save = null;

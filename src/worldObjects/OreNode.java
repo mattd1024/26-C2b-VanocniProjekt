@@ -3,6 +3,11 @@ package worldObjects;
 import game.Colors;
 import map.MapObject;
 
+/**
+ * Trida OreNode reprezentuje rudu
+ * Obsahuje mnozstvi ktere lze snizit
+ * Muze byt typu nitra, gold a morkite
+ */
 public class OreNode extends MapObject {
     private int amount;
     private MineralType mineralType;

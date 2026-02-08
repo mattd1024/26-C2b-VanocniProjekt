@@ -2,6 +2,10 @@ package rooms;
 
 import map.Map;
 
+/**
+ * Trida Room reprezentuje mistnost
+ * Obsahuje mapu, ID, jmeno, deskripci
+ */
 public class Room {
     private Map map;
     private String roomID;

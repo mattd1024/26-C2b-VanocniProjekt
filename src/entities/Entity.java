@@ -2,6 +2,9 @@ package entities;
 
 import map.MapObject;
 
+/**
+ * Trida Entity je rodicovska vzorova trida pro jakykoliv charakter ve hre
+ */
 public class Entity extends MapObject {
     protected String name;
     protected int health;

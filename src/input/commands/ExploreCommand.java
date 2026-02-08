@@ -4,28 +4,31 @@ import game.Console;
 import input.Command;
 import map.Map;
 
+/**
+ * ExploreCommand vypise deskripci specifickeho MapObjectu v mape
+ */
 public class ExploreCommand implements Command {
     private final int x;
     private final int y;
     private final Map map;
 
-    public ExploreCommand(int x, int y, Map map) {
-        this.x = x;
-        this.y = y;
+    public ExploreCommand(String[] args, Map map) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.map = map;
     }
 
     @Override
     public void execute() {
         // Jsou souradnice validni
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
+        if (!map.isValidCoordinate(x, y)) {
             System.out.println("Nespravne souradnice");
             Console.printEnter();
             return;
         }
 
         // Vyprintime deskripci map objektu na x y
-        System.out.println(map.getMap()[y][x].getDescription());
+        System.out.println(map.getGrid()[y][x].getDescription());
         Console.printEnter();
 
     }

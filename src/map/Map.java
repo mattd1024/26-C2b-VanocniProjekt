@@ -1,29 +1,35 @@
 package map;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Trida map se stara o mapu
+ * Obsahuje 2d array MapObject[][] grid
+ * Poskytuje ruzne metody k praci s mapou a ziskanim informaci od ni
+ */
 public class Map {
-    MapObject[][] map;
-    private int roomID;
+    MapObject[][] grid;
 
     public Map(int numRows, int numCols) {
-        map = new MapObject[numRows][numCols];
+        grid = new MapObject[numRows][numCols];
     }
 
+    /**
+     * Do konzole vyprinti mapu
+     */
     public void printMap() {
         // Vyprintime horizontalni navadeci listu
         System.out.print("  ");
-        for (int i = 0; i < map[0].length; i++) {
+        for (int i = 0; i < grid[0].length; i++) {
             System.out.print(formatGuideNum(i));
         }
         System.out.println();
 
-        // Vyprintime mapu
-        for (int row = 0; row < map.length; row++) {
-            System.out.print((row) + " "); // Vyprintime vertikalni navadeci listu
-            for (int col = 0; col < map[0].length; col++) {
-                MapObject mapObject = map[row][col];
+        // Vyprintime mapu s listou
+        for (int row = 0; row < grid.length; row++) {
+            // Vyprintime vertikalni navadeci listu
+            System.out.print((row) + " ");
+            // Vyprintime mapu
+            for (int col = 0; col < grid[0].length; col++) {
+                MapObject mapObject = grid[row][col];
                 System.out.print(mapObject.getIcon());
             }
             System.out.println();
@@ -31,76 +37,79 @@ public class Map {
     }
 
     /**
-     * Takes an int and returns a formatted String with the same value and double digits.
-     * Only for [0-9]
+     * Vezme int a vraci formatovany string se stejnou hodnotou a vzdy aby zabiral dve mista
+     * Pouze pro [0-9]
      * @return
      */
     public String formatGuideNum(int num) {
-        if (!(num < 0 || num > 9)) {
-            return num + " ";
+        if (num < 0 || num > 9) {
+            throw new IllegalArgumentException("Navadeci cislo moc velke, musi byt [0-9]");
         } else {
-            throw new IllegalArgumentException("Guide num is too high/low");
+            return num + " ";
         }
     }
 
+    /**
+     * Kontroluje jestli objekt na x a y je choditelny
+     * @param x Souradnice x
+     * @param y Souradnice y
+     * @return Boolean true/false
+     */
     public boolean isWalkableAt(int x, int y) {
-        if (map[y][x].isWalkable()) {
+        if (grid[y][x].isWalkable()) {
             return true;
         }
         return false;
     }
 
-    public ArrayList<MapObject> getMapObjectsInBetween(int x1, int y1, int x2, int y2) {
-        ArrayList<MapObject> objectsBetween = new ArrayList<>();
+//    public ArrayList<MapObject> getMapObjectsInBetween(int x1, int y1, int x2, int y2) {
+//        ArrayList<MapObject> mapObjects = new ArrayList<>();
+//
+//
+//        return objectsBetween;
+//    }
 
-        int dx = x2 - x1;
-        int dy = y2 - y1;
+    /**
+     * Kontroluje jestli koordinaty x a y jsou validni
+     * @param x Souradnice x
+     * @param y Souradnice y
+     * @return Boolean true/false
+     */
+    public boolean isValidCoordinate(int x, int y) {
+        int width = grid[0].length;
+        int height = grid.length;
 
-        int steps = Math.max(Math.abs(dx), Math.abs(dy));
-        if (steps == 0) return objectsBetween;
-
-        float stepX = dx / (float) steps;
-        float stepY = dy / (float) steps;
-
-        float currentX = x1;
-        float currentY = y1;
-
-        for (int i = 1; i < steps; i++) {
-            currentX += stepX;
-            currentY += stepY;
-            int cx = Math.round(currentX);
-            int cy = Math.round(currentY);
-            if (cy >= 0 && cy < map.length &&
-                    cx >= 0 && cx < map[0].length) {
-                objectsBetween.add(map[cy][cx]);
-            }
+        if (x < 0 || y < 0) {
+            return false;
         }
 
-        return objectsBetween;
+        if (x > width || y > height) {
+            return false;
+        }
+
+        return true;
     }
 
-
-    public void addMapObject(int row, int col, MapObject mo) {
-        map[row][col] = mo;
+    /**
+     * Prida MapObject na koordinaty x a y
+     * @param x Souradnice x
+     * @param y Souradnice y
+     * @param mo MapObject mapObject
+     */
+    public void addMapObject(int x, int y, MapObject mo) {
+        grid[x][y] = mo;
     }
 
     public MapObject getMapObject(int row, int col) {
-        return map[row][col];
+        return grid[row][col];
     }
 
-    public MapObject[][] getMap() {
-        return map;
+    public MapObject[][] getGrid() {
+        return grid;
     }
 
-    public void setMap(MapObject[][] map) {
-        this.map = map;
+    public void setGrid(MapObject[][] grid) {
+        this.grid = grid;
     }
 
-    public int getRoomID() {
-        return roomID;
-    }
-
-    public void setRoomID(int roomID) {
-        this.roomID = roomID;
-    }
 }

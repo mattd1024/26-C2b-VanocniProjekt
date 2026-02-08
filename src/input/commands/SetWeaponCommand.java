@@ -4,12 +4,15 @@ import input.Command;
 import inventory.Inventory;
 import inventory.items.Weapon;
 
+/**
+ * SetWeaponCommand nastavuje hraci jeho primarni zbran dle vyberu, z jeho inventare
+ */
 public class SetWeaponCommand implements Command {
     private final String requestedWeapon;
     private final Inventory inventory;
 
-    public SetWeaponCommand(String requestedWeapon, Inventory inventory) {
-        this.requestedWeapon = requestedWeapon;
+    public SetWeaponCommand(String[] args, Inventory inventory) {
+        this.requestedWeapon = args[0];
         this.inventory = inventory;
     }
 

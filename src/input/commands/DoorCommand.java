@@ -9,23 +9,27 @@ import rooms.RoomManager;
 import worldObjects.Door;
 import worldObjects.Floor;
 
+/**
+ * DoorCommand zpracuje pohyb z mistnosti do mistnosti pomoci objektu Door v mape
+ */
 public class DoorCommand implements Command {
     private final int x;
     private final int y;
     private final RoomManager roomManager;
     private final Player player;
 
-    public DoorCommand(int x, int y, RoomManager roomManager, Player player) {
-        this.x = x;
-        this.y = y;
+    public DoorCommand(String[] args, RoomManager roomManager, Player player) {
+        this.x = Integer.parseInt(args[0]);
+        this.y = Integer.parseInt(args[1]);
         this.roomManager = roomManager;
         this.player = player;
     }
 
     public void execute() {
-        // Jsou souradnice validni
         Map map = roomManager.getRoomByID(player.getActualRoomID()).getMap();
-        if (y < 0 || y >= map.getMap().length || x < 0 || x >= map.getMap()[0].length) {
+
+        // Jsou souradnice validni
+        if (!map.isValidCoordinate(x, y)) {
             System.out.println("Nespravne souradnice");
             Console.printEnter();
             return;
@@ -63,7 +67,7 @@ public class DoorCommand implements Command {
         int targetY = door.getTargetY();
 
         // Overime, ze cilove souradnice nejsou mimo mapu
-        if (targetY < 0 || targetY >= newMap.getMap().length || targetX < 0 || targetX >= newMap.getMap()[0].length) {
+        if (targetY < 0 || targetY >= newMap.getGrid().length || targetX < 0 || targetX >= newMap.getGrid()[0].length) {
             System.out.println("Cilove souradnice dveri jsou mimo mapu!");
             return;
         }

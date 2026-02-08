@@ -9,6 +9,9 @@ import save.SaveData;
 
 import java.util.Scanner;
 
+/**
+ * Trida Game sjednocuje vsechny herni funkce a obsahuje hlavni herni smycku
+ */
 public class Game {
     private boolean isRunning;
     private Player player;
@@ -43,7 +46,7 @@ public class Game {
             String input;
             System.out.println("Vstup ==>                     (pro list komandu: ,,help'')");
             input = scanner.nextLine();
-            Command command = inputHandler.parseCommand(input, player, roomManager.getRoomByID(player.getActualRoomID()).getMap(), roomManager);
+            Command command = inputHandler.parseCommand(input, player, roomManager);
             if (command != null) {
                 if (command instanceof EndCommand) {
                     System.out.println("Ending game!");

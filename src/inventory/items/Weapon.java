@@ -1,5 +1,8 @@
 package inventory.items;
 
+/**
+ * Trida Weapon reprezentuje zbrane ktere muze hrac pouzivat
+ */
 public class Weapon extends Item{
     private int range;
     private int damage;
@@ -55,6 +58,6 @@ public class Weapon extends Item{
 
     @Override
     public String toString() {
-        return name + " | " + "range: " + range + ", " + "damage: " + damage +  ", " + "ammoConsumption: " + ammoConsumption + ", " + "cost: " + cost;
+        return name + " | " + "vzdalenost hitnuti: " + range + ", " + "poskozeni: " + damage +  ", " + "konzumace naboju: " + ammoConsumption + ", " + "cena: " + cost;
     }
 }
