@@ -50,7 +50,7 @@ public class InputHandler {
                 if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
                     return null;
                 }
-                return new AttackCommand(args, map, player);
+                return new AttackCommand(args, roomManager.getCurrentRoom(), player);
             case "collect":
                 if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
                     return null;
@@ -94,6 +94,11 @@ public class InputHandler {
                     return null;
                 }
                 return new TalkCommand(args, map, player);
+            case "escape":
+                if (!validateArgsLength(args, 2) || !validateIntArgs(args)) {
+                    return null;
+                }
+                return new EscapeCommand(args, map, player);
             default:
                 return null;
         }

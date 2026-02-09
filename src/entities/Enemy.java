@@ -1,13 +1,14 @@
 package entities;
 
-import behavior.Behavior;
+import behavior.EnemyBehavior;
 import game.Colors;
+import map.Map;
 
 /**
  * Trida Enemy je nepritel
  */
 public class Enemy extends Entity{
-    private Behavior behavior;
+    private EnemyBehavior enemyBehavior;
 
     public Enemy() {
         description = "Nepritel pavouk: zbranema ho musis zneskodnit";
@@ -15,6 +16,7 @@ public class Enemy extends Entity{
         icon = Colors.RED+"E "+Colors.RESET;
         isWalkable = false;
         isSeeThrough = false;
+        enemyBehavior = new EnemyBehavior(20);
     }
 
     public Enemy(int health) {
@@ -22,11 +24,8 @@ public class Enemy extends Entity{
         this.health = health;
     }
 
-    public boolean isAlive() {
-        if (health <= 0) {
-            return false;
-        }
-        return true;
+    public void startAI(Map map, Player player) {
+        enemyBehavior.act(map, player, this);
     }
 
 

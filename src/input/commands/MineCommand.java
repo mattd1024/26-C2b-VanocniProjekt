@@ -1,9 +1,12 @@
 package input.commands;
 
 import entities.Player;
+import game.Colors;
 import game.Console;
 import input.Command;
+import inventory.Inventory;
 import map.Map;
+import map.MapHelper;
 import map.MapObject;
 import worldObjects.Floor;
 import worldObjects.OreNode;
@@ -25,11 +28,13 @@ public class MineCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
+        Inventory inventory = player.getInventory();
+
         // Jsou souradnice validni
-        if (!map.isValidCoordinate(x, y)) {
+        if (!MapHelper.isValidCoordinate(x, y, map.getWidth(), map.getHeight())) {
             Console.printError("Nespravne souradnice");
-            return;
+            return null;
         }
 
         // Zjistime vzdálenost mezi hracem a rudou
@@ -40,28 +45,36 @@ public class MineCommand implements Command {
         if (dx > 1 || dy > 1) {
             System.out.println("Jsi moc daleko od rudy");
             Console.printEnter();
-            return;
+            return null;
         }
 
         // Vezmeme mapObject a zjistime jestli existuje
-        MapObject mapObject = map.getMapObject(y, x);
+        MapObject mapObject = map.getMapObject(x, y);
         if (!(mapObject instanceof OreNode)) {
             System.out.println("Zde neni ruda");
             Console.printEnter();
-            return;
+            return null;
         }
 
-        // Zapocneme tezeni
+        // Vytvorime objekty
         OreNode oreNode = (OreNode) mapObject;
         OreNode.MineralType typeOfOre = oreNode.getMineralType();
-        int mined = oreNode.mineOre(80);
 
-        player.getInventory().addMineral(typeOfOre, mined);
+        // Muze hrac tezit? (ma plny inventar urciteho typu rudy?)
+        if (inventory.canMine(40, typeOfOre)) {
+            int mined = oreNode.mineOre(80);
+            inventory.addMineral(typeOfOre, mined);
+            map.addMapObject(x, y, new Floor());
 
-        map.addMapObject(y, x, new Floor());
+            Console.printColorMessage("Vytezil si " + mined + " rudy " + typeOfOre.toString(), Colors.GREEN);
+            Console.printEnter();
+            Console.printSpace();
+        } else {
+            Console.printColorMessage("Tuhle rudu uz nemuzes tezit!", Colors.RED);
+            Console.printEnter();
+            Console.printSpace();
+        }
 
-        System.out.println("Vytezil si " + mined + " rudy " + typeOfOre.toString());
-        Console.printEnter();
-        Console.printSpace();
+        return Result.CONTINUE;
     }
 }

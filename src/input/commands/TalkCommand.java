@@ -7,6 +7,7 @@ import entities.ShopBot;
 import game.Console;
 import input.Command;
 import map.Map;
+import map.MapHelper;
 
 /**
  * TalkCommand obsluhuje komunikaci mezi hracem a entitou (pouze Friendly nebo ShopBot)
@@ -25,11 +26,11 @@ public class TalkCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
         // Jsou souradnice validni
-        if (!map.isValidCoordinate(x, y)) {
+        if (!MapHelper.isValidCoordinate(x, y, map.getWidth(), map.getHeight())) {
             Console.printError("Nespravne souradnice");
-            return;
+            return null;
         }
 
         // Zjistime vzdálenost mezi hracem a entitou
@@ -39,14 +40,14 @@ public class TalkCommand implements Command {
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
             Console.printError("Jsi moc daleko od entity");
-            return;
+            return null;
         }
 
         // Vezmeme entitu a zjistime jestli existuje
-        Entity entity = (Entity) map.getMapObject(y, x);
+        Entity entity = (Entity) map.getMapObject(x, y);
         if (entity == null) {
             Console.printError("Zde neni entita");
-            return;
+            return null;
         }
 
         // Pro Friendly
@@ -60,5 +61,7 @@ public class TalkCommand implements Command {
                 Console.printError("S timhle nemuzes mluvit");
             }
         }
+
+        return Result.CONTINUE;
     }
 }

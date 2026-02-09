@@ -19,7 +19,7 @@ public class SetWeaponCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
         // Zjistime jestli ma hrac zbran podle nazvu zbrane a pripadne nastavime jako primarni zbran hrace
         for (Weapon weapon : inventory.getWeapons()) {
             if (weapon.getName().equalsIgnoreCase(requestedWeapon)) {
@@ -27,9 +27,10 @@ public class SetWeaponCommand implements Command {
                 Console.printColorMessage("Vybral sis aktivni zbran: " + weapon.getName(), Colors.GREEN);
                 Console.printEnter();
                 Console.printSpace();
-                return;
             }
         }
         Console.printColorMessage("Tuto zbran nemas!", Colors.RED);
+
+        return Result.CONTINUE;
     }
 }

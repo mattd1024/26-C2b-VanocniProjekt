@@ -10,7 +10,8 @@ public class EndCommand implements Command {
 
 
     @Override
-    public void execute() {
+    public Result execute() {
         System.out.println("Konec hry!");
+        return Result.END_GAME;
     }
 }

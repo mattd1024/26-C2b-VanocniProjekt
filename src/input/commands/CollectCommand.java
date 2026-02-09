@@ -4,7 +4,9 @@ import entities.Player;
 import game.Colors;
 import game.Console;
 import input.Command;
+import inventory.Inventory;
 import map.Map;
+import map.MapHelper;
 import worldObjects.Floor;
 import worldObjects.Resupply;
 
@@ -25,11 +27,13 @@ public class CollectCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
+        Inventory inventory = player.getInventory();
+
         // Jsou souradnice validni
-        if (!map.isValidCoordinate(x, y)) {
+        if (!MapHelper.isValidCoordinate(x, y, map.getWidth(), map.getHeight())) {
             Console.printError("Nespravne souradnice");
-            return;
+            return null;
         }
 
         // Zjistime vzdálenost mezi hracem a resupply
@@ -39,17 +43,24 @@ public class CollectCommand implements Command {
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
             Console.printError("Jsi moc daleko od zasobovaci rakety");
-            return;
+            return null;
         }
 
-        // ZJistime jestli objekt na x y je resupply a pouzijeme ho
+        // ZJistime jestli objekt na x y je resupply
         if (map.getGrid()[y][x] instanceof Resupply) {
-            player.setHealth(100);
-            player.getInventory().setAmmo(100);
-            map.addMapObject(y, x, new Floor());
-            Console.printColorMessage("Uspesne si sebral zasobovaci raketu", Colors.GREEN);
+            // Zjistime jestli hrac ma maximalni mnozstvi zivotu a naboju a pripadne odmitneme pozadavek
+            if (player.getHealth() == 100 && inventory.getAmmo() == 100) {
+                Console.printError("Jiz mas plne zivoty a naboje");
+            } else {
+                player.setHealth(100);
+                inventory.setAmmo(100);
+                map.addMapObject(x, y, new Floor());
+                Console.printColorMessage("Uspesne si sebral zasobovaci raketu", Colors.GREEN);
+            }
         } else {
             Console.printError("Na tomto miste neni zasobovaci raketa");
         }
+
+        return Result.CONTINUE;
     }
 }

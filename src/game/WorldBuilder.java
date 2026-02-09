@@ -26,40 +26,41 @@ public class WorldBuilder {
     }
 
     /**
-     * Process the rooms in SaveData and return a finished RoomManager
      * Procesuje mistnosti v SaveData objektu a vraci hotovy objekt RoomManager
      * @param save
      * @return
      */
     public RoomManager buildRooms(SaveData save) {
         RoomManager roomManager = new RoomManager();
-        // Process each room
+        // Staveni kazde mistnosti
         for (RoomData room : save.getRooms()) {
-            // Build the map from the .json file
+            // Postavime mapu ze SaveData
             List<String> tiles = room.getMap().getTiles();
             int numRows = tiles.size();
             int numCol = tiles.get(0).length();
             Map newMap = new Map(numRows, numCol);
 
-            for (int y = 0; y < numRows; y++) { // For every row in json
+            for (int y = 0; y < numRows; y++) {
+                //  Pro kazdy radek v SaveData
                 String row = tiles.get(y);
-                for (int x = 0; x < numCol; x++) { // For every char in row
+                for (int x = 0; x < numCol; x++) {
+                    // Pro kazdy char v radku
                     char letter = row.charAt(x);
                     MapObject mapObject = parseMapObjectFromChar(letter);
-                    newMap.addMapObject(y, x, mapObject);
+                    newMap.addMapObject(x, y, mapObject);
                 }
             }
 
-            // Overwrite map objects with overwrites
+            // Prenastavime MapObjecty s overwrity
             for (OverwriteData overwrite : room.getMap().getOverwrites()) {
-                // Get general info from overwrite
+                // Ziskame info z overwritu
                 overwriteType overwriteType = overwrite.getType();
                 int x = overwrite.getPosition().getX();
                 int y = overwrite.getPosition().getY();
 
-                // Based on the type of overwrite, find out whats needed to extract and create a corresponding MapObject
+                // Dle typu overwritu, zjistime co je treba extrahovat a vytvorime spravny MapObject
                 MapObject newMapObject = parseMapObjectFromOverwrite(overwrite);
-                newMap.addMapObject(y, x, newMapObject);
+                newMap.addMapObject(x, y, newMapObject);
             }
             roomManager.addRoom(new Room(newMap, room.getRoomID(), room.getName(), room.getDescription()));
         }
@@ -76,10 +77,10 @@ public class WorldBuilder {
         PlayerData playerData = save.getPlayer();
         Player newPlayer = new Player();
 
-        // Set health
+        // Nastavit zivoty
         newPlayer.setHealth(playerData.getHealth());
 
-        // Load weapons
+        // Nacist zbrane
         InventoryData inventoryData = playerData.getInventory();
         for (WeaponData weaponData : inventoryData.getWeapons()) {
             String weaponName = weaponData.getName();
@@ -91,12 +92,12 @@ public class WorldBuilder {
             newPlayer.getInventory().addWeapon(newWeapon);
         }
 
-        // Load minerals
+        // Nacist mineraly
         newPlayer.getInventory().setGoldAmount(inventoryData.getGold());
         newPlayer.getInventory().setMorkiteAmount(inventoryData.getMorkite());
         newPlayer.getInventory().setNitraAmount(inventoryData.getNitra());
 
-        // Load position
+        // Nacist pozici
         String actualRoomID = playerData.getPosition().getActualRoomID();
         int x = playerData.getPosition().getX();
         int y = playerData.getPosition().getY();
@@ -114,15 +115,14 @@ public class WorldBuilder {
      * @param player Player
      */
     public void placePlayer(RoomManager roomManager, Player player) {
-        // Put player in map
         String actualRoomID = player.getActualRoomID();
         int x = player.getX();
         int y = player.getY();
 
-        // Loop through rooms until room IDs match and place player in the room
+        // Jdeme skrz vsechny mistnosti dokud hracovo ID mistnosti je stejne a vlozime hrace do spravne mistnosti
         for (Room room : roomManager.getRooms()) {
             if (room.getRoomID().equals(actualRoomID)) {
-                room.getMap().addMapObject(y, x, player);
+                room.getMap().addMapObject(x, y, player);
             }
         }
     }
@@ -157,8 +157,10 @@ public class WorldBuilder {
                 return mapObject = new Door();
             case 'F':
                 return mapObject = new Friendly();
+            case 'X':
+                return mapObject = new EscapeRocket();
             default:
-                throw new IllegalArgumentException("Unknown map character in .json save file: " + letter);
+                throw new IllegalArgumentException("V .json souboru je neznamy charakter: " + letter);
         }
     }
 

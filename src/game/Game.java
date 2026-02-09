@@ -31,9 +31,6 @@ public class Game {
         player = worldBuilder.buildPlayer(save);
         worldBuilder.placePlayer(roomManager, player);
 
-        // TODO dokoncit hlavni herni smycku
-        // TODO zhezcit printovani do konzole
-
         // Hlavni herni smycka
         while (isRunning) {
             // Printeni zakladnich udaju a mapy
@@ -45,19 +42,37 @@ public class Game {
             Console.printColorMessage("Aktivni mistnost >> " + roomManager.getCurrentRoom().getName(), Colors.YELLOW);
             roomManager.printActiveRoom();
 
-            // Parzovani vstupu a hlavni smycka
+            // Parzovani vstupu
             Console.printColorMessage("Vstup ==>>                   (pro list komandu: ,,help'')", Colors.GREEN);
             String input = Console.getInputFromUser();
             Command command = inputHandler.parseCommand(input, player, roomManager);
-            if (command != null) {
-                if (command instanceof EndCommand) {
-                    Console.printColorMessage("Konec hry!", Colors.GREEN);
-                    isRunning = false;
-                    break;
-                }
-                command.execute();
-            } else {
+
+            if (command == null) {
                 Console.printError("Nespravny komand");
+                continue;
+            }
+
+            // Dle vysledku komandu (vraci enum: END_GAME | END_TURN | CONTINUE) se provede akce
+            Command.Result result = command.execute();
+            if (result != null) {
+                switch (result) {
+                    case END_TURN:
+                        // Pro kazdeho nepritele v mistnosti udelat jeho turn
+                        roomManager.getCurrentRoom().startEnemies(player);
+
+                        // Po akci nepratel zkontrolujeme jestli je hrac mrtev
+                        if (!player.isAlive()) {
+                            Console.printColorMessage("Zemrel jsi!", Colors.RED);
+                            Console.printEnter();
+                            isRunning = false;
+                        }
+                        break;
+                    case CONTINUE:
+                        break;
+                    case END_GAME:
+                        isRunning = false;
+                        break;
+                }
             }
         }
     }

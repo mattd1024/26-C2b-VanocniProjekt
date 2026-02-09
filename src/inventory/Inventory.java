@@ -11,6 +11,10 @@ import java.util.ArrayList;
  * Obsahuje zbrane a naboje
  */
 public class Inventory {
+    private final int MAX_NITRA = 80;
+    private final int MAX_GOLD = 80;
+    private final int MAX_MORKITE = 200;
+
     private int NitraAmount;
     private int GoldAmount;
     private int MorkiteAmount;
@@ -43,6 +47,27 @@ public class Inventory {
             }
         }
         return null;
+    }
+
+    public boolean canMine(int amount, OreNode.MineralType mineralType) {
+        switch (mineralType) {
+            case NITRA:
+                if ((amount + NitraAmount) > MAX_NITRA) {
+                    return false;
+                }
+                break;
+            case GOLD:
+                if ((amount + GoldAmount) > MAX_GOLD) {
+                    return false;
+                }
+                break;
+            case MORKITE:
+                if ((amount + MorkiteAmount) > MAX_MORKITE) {
+                    return false;
+                }
+                break;
+        }
+        return true;
     }
 
     public String getActiveWeaponID() {

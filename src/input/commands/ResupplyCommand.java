@@ -4,6 +4,9 @@ import game.Console;
 import input.Command;
 import inventory.Inventory;
 import map.Map;
+import map.MapHelper;
+import map.MapObject;
+import worldObjects.Floor;
 import worldObjects.Resupply;
 
 /**
@@ -23,19 +26,27 @@ public class ResupplyCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
         // Jsou souradnice validni
-        if (!map.isValidCoordinate(x, y)) {
+        if (!MapHelper.isValidCoordinate(x, y, map.getWidth(), map.getHeight())) {
             Console.printError("Nespravne souradnice");
-            return;
+            return null;
+        }
+
+        // Muze hrac zavolat zasobovaci raketu na misto x y? (musi byt pouze Floor)
+        MapObject mapObject = map.getMapObject(x, y);
+        if (!(mapObject instanceof Floor)) {
+            Console.printError("Sem nemuzes zavolat zasobovaci raketu (pouze na podlahu)");
+            return Result.CONTINUE;
         }
 
         // Zjistime jestli ma dostatek nitry a pripadne vlozime resupply do mapy
         if (inventory.getNitraAmount() >= 80) {
             inventory.setNitraAmount(inventory.getNitraAmount() - 80);
-            map.addMapObject(y, x, new Resupply(100, 100));
+            map.addMapObject(x, y, new Resupply(100, 100));
         } else {
             Console.printError("Nemas dostatek nitry, potrebujes minimalne 80");
         }
+        return Result.CONTINUE;
     }
 }

@@ -56,52 +56,88 @@ public class Map {
      * @return Boolean true/false
      */
     public boolean isWalkableAt(int x, int y) {
-        if (grid[y][x].isWalkable()) {
+        if (getMapObject(x, y).isWalkable()) {
             return true;
         }
         return false;
-    }
-
-//    public ArrayList<MapObject> getMapObjectsInBetween(int x1, int y1, int x2, int y2) {
-//        ArrayList<MapObject> mapObjects = new ArrayList<>();
-//
-//
-//        return objectsBetween;
-//    }
-
-    /**
-     * Kontroluje jestli koordinaty x a y jsou validni
-     * @param x Souradnice x
-     * @param y Souradnice y
-     * @return Boolean true/false
-     */
-    public boolean isValidCoordinate(int x, int y) {
-        int width = grid[0].length;
-        int height = grid.length;
-
-        if (x < 0 || y < 0) {
-            return false;
-        }
-
-        if (x > width || y > height) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
      * Prida MapObject na koordinaty x a y
      * @param x Souradnice x
      * @param y Souradnice y
-     * @param mo MapObject mapObject
+     * @param mo MapObject
      */
     public void addMapObject(int x, int y, MapObject mo) {
-        grid[x][y] = mo;
+        grid[y][x] = mo;
     }
 
-    public MapObject getMapObject(int row, int col) {
-        return grid[row][col];
+    /**
+     * Vrati MapObject na souradnicich x a y
+     * @param x Souradnice x
+     * @param y Souradnice y
+     * @return MapObject
+     */
+    public MapObject getMapObject(int x, int y) {
+        return grid[y][x];
+    }
+
+    /**
+     * Zjisti jestli dve pozice se muzou v mape videt, bere v potaz objekty mezi pozicemi
+     * @param x1 Prvni x souradnice
+     * @param y1 Prvni y souradnice
+     * @param x2 Druhe x souradnice
+     * @param y2 Druhe y souradnice
+     * @return True/false
+     */
+    public boolean canSee(int x1, int y1, int x2, int y2) {
+        // Bresenhamuv carovny carovy algoritmus
+        // Vypocitame rozdil
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+
+        // Urcuje ktery smer zvolit
+        int sx = 1;
+        int sy = 1;
+        if (x1 > x2) {
+            sx = -1;
+        }
+        if (y1 > y2) {
+            sy = -1;
+        }
+
+        // Err nam urcuje jak daleko se vzdalujeme od idealni cary mezi pozicemi
+        int err = dx - dy;
+
+        while (true) {
+            // Zkontrolujeme jestli jsme v cili
+            if (x1 == x2 && y1 == y2) {
+                break;
+            }
+
+            // e2 se bere jako err ale vynasobeny cislem 2, abychom nemuseli resit decimalni cislice
+            int e2 = 2 * err;
+
+            // Pohyb
+            if (e2 > -dy) {
+                err -= dy;
+                x1 += sx;
+            }
+            if (e2 < dx) {
+                err += dx;
+                y1 += sy;
+            }
+
+            if (x1 == x2 && y1 == y2) {
+                break;
+            }
+
+            MapObject mapObject = getMapObject(x1, y1);
+            if (!mapObject.isWalkable() || !mapObject.isSeeThrough()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public MapObject[][] getGrid() {
@@ -110,6 +146,14 @@ public class Map {
 
     public void setGrid(MapObject[][] grid) {
         this.grid = grid;
+    }
+
+    public int getWidth() {
+        return grid[0].length;
+    }
+
+    public int getHeight() {
+        return grid.length;
     }
 
 }

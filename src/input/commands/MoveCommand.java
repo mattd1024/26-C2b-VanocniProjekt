@@ -1,8 +1,10 @@
 package input.commands;
 
 import entities.Player;
+import game.Console;
 import input.Command;
 import map.Map;
+import map.MapHelper;
 import worldObjects.Floor;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public class MoveCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
         int currentX = player.getX();
         int currentY = player.getY();
 
@@ -45,14 +47,15 @@ public class MoveCommand implements Command {
                     break;
             }
 
-            // ZJistime jestli jde pohyb ven z mapy
-            if (newY < 0 || newY >= map.getGrid().length || newX < 0 || newX >= map.getGrid()[0].length) {
-                break;
+            // Jsou souradnice validni
+            if (!MapHelper.isValidCoordinate(newX, newY, map.getWidth(), map.getHeight())) {
+                Console.printError("Nespravne souradnice");
+                return null;
             }
 
             if (map.getGrid()[newY][newX].isWalkable()) {
-                map.addMapObject(newY, newX, player);
-                map.addMapObject(currentY, currentX, new Floor());
+                map.addMapObject(newX, newY, player);
+                map.addMapObject(currentX, currentY, new Floor());
 
                 player.setX(newX);
                 player.setY(newY);
@@ -64,6 +67,7 @@ public class MoveCommand implements Command {
                 break;
             }
         }
+        return Result.END_TURN;
     }
 }
 

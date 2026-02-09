@@ -3,6 +3,7 @@ package input.commands;
 import game.Console;
 import input.Command;
 import map.Map;
+import map.MapHelper;
 
 /**
  * ExploreCommand vypise deskripci specifickeho MapObjectu v mape
@@ -19,17 +20,18 @@ public class ExploreCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
         // Jsou souradnice validni
-        if (!map.isValidCoordinate(x, y)) {
+        if (!MapHelper.isValidCoordinate(x, y, map.getWidth(), map.getHeight())) {
             Console.printError("Nespravne souradnice");
-            return;
+            return null;
         }
 
         // Vyprintime deskripci map objektu na x y
         System.out.println(map.getGrid()[y][x].getDescription());
         Console.printEnter();
 
+        return Result.CONTINUE;
     }
 }
 

@@ -1,6 +1,5 @@
 package input.commands;
 
-import entities.Player;
 import game.Colors;
 import game.Console;
 import input.Command;
@@ -18,7 +17,7 @@ public class InventoryCommand implements Command {
     }
 
     @Override
-    public void execute() {
+    public Result execute() {
         System.out.println("Inventar:");
 
         // Zbrane
@@ -34,7 +33,8 @@ public class InventoryCommand implements Command {
         Console.printColorMessage("  Morkite: " + inventory.getMorkiteAmount(), Colors.YELLOW);
 
         System.out.println();
-
         Console.printEnter();
+
+        return Result.CONTINUE;
     }
 }

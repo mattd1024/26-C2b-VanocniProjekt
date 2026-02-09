@@ -4,6 +4,7 @@ import entities.Player;
 import game.Console;
 import input.Command;
 import map.Map;
+import map.MapHelper;
 import map.MapObject;
 import rooms.RoomManager;
 import worldObjects.Door;
@@ -25,13 +26,13 @@ public class DoorCommand implements Command {
         this.player = player;
     }
 
-    public void execute() {
+    public Result execute() {
         Map map = roomManager.getRoomByID(player.getActualRoomID()).getMap();
 
         // Jsou souradnice validni
-        if (!map.isValidCoordinate(x, y)) {
+        if (!MapHelper.isValidCoordinate(x, y, map.getWidth(), map.getHeight())) {
             Console.printError("Nespravne souradnice");
-            return;
+            return null;
         }
 
         // Zjistime vzdálenost mezi hracem a dvermi
@@ -41,14 +42,14 @@ public class DoorCommand implements Command {
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
             Console.printError("Jsi moc daleko od dveri");
-            return;
+            return null;
         }
 
         // Zkontrolujeme jestli mapObject jsou doopravdy dvere
-        MapObject mapObject = map.getMapObject(y, x);
+        MapObject mapObject = map.getMapObject(x, y);
         if (!(mapObject instanceof Door)) {
             Console.printError("Zde nejsou dvere");
-            return;
+            return null;
         }
 
         Door door = (Door) mapObject;
@@ -57,20 +58,22 @@ public class DoorCommand implements Command {
         Map newMap = roomManager.getRoomByID(door.getTargetRoomID()).getMap();
 
         // Odstranime hrace ze stare mapy
-        map.addMapObject(player.getY(), player.getX(), new Floor());
+        map.addMapObject(player.getX(), player.getY(), new Floor());
 
         // Ziskame target souradnice z dveri
         int targetX = door.getTargetX();
         int targetY = door.getTargetY();
 
         // Presuneme hrace do nove mapy
-        newMap.addMapObject(targetY, targetX, player);
+        newMap.addMapObject(targetX, targetY, player);
 
         // Aktualizujeme hrace a roomManager
         player.setActualRoomID(door.getTargetRoomID());
         player.setX(targetX);
         player.setY(targetY);
         roomManager.setCurrentRoomID(door.getTargetRoomID());
+
+        return Result.CONTINUE;
     }
 
 }

@@ -11,7 +11,13 @@ public class Resupply extends MapObject {
     private int ammoAmount;
     private int healthAmount;
 
+    public Resupply() {
+        isWalkable = false;
+        isSeeThrough = false;
+    }
+
     public Resupply(int ammoAmount, int healthAmount) {
+        this();
         description = "Zasobovaci raketa: prikazem collect ji seberes a doplni se ti zivoty a naboje do plna";
         icon = Colors.RED+"R "+Colors.RESET;
         this.ammoAmount = ammoAmount;

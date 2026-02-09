@@ -13,8 +13,11 @@ public class Entity extends MapObject {
         health -= dmgAmount;
     }
 
-    public void move(int x, int y) {
-
+    public boolean isAlive() {
+        if (health <= 0) {
+            return false;
+        }
+        return true;
     }
 
     public String getName() {

@@ -2,7 +2,6 @@ package input.commands;
 
 import game.Console;
 import input.Command;
-import map.Map;
 
 /**
  * HelpCommand vypise vsechny mozne komandy
@@ -10,7 +9,7 @@ import map.Map;
 public class HelpCommand implements Command {
 
     @Override
-    public void execute() {
+    public Result execute() {
         System.out.println("Dostupne komandy:");
         System.out.println("    attack x y               ==> Zautocis na nepritele na x y");
         System.out.println("    collect x y              ==> Sesbiras resupply na x y");
@@ -26,5 +25,6 @@ public class HelpCommand implements Command {
         System.out.println("    talk x y                 ==> Promluvis s postavou na x y");
         Console.printEnter();
 
+        return Result.CONTINUE;
     }
 }
