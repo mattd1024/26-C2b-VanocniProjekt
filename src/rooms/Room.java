@@ -45,7 +45,14 @@ public class Room {
         }
     }
 
-    public void removeEnemy(Enemy requestedEnemy) {
+    /**
+     * Odstrani nepritele z mapy a z listu nepratel u mistnosti
+     * @param x Souradnice x
+     * @param y Souradnice y
+     * @param requestedEnemy Pozadovany nepritel
+     */
+    public void removeEnemy(int x, int y, Enemy requestedEnemy) {
+        map.addMapObject(x, y, new Floor());
         enemies.remove(requestedEnemy);
     }
 

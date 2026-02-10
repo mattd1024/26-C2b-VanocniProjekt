@@ -80,8 +80,7 @@ public class AttackCommand implements Command {
 
         // Pripadne odstranit nepratele
         if (!target.isAlive()) {
-            map.addMapObject(x, y, new Floor());
-            room.removeEnemy(target);
+            room.removeEnemy(x, y, target);
 //            Console.printColorMessage("Nepritel znicen!", Colors.RED);
 //            Console.printEnter();
         }
