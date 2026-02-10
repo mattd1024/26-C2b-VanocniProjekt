@@ -18,8 +18,9 @@ public class Room {
     private String roomID;
     private String name;
     private String description;
-    private List<Enemy> enemies;
 
+    // Pro jednodussi operace s nepritele mame i list enemies ktery ma kazda mistnost, musi byt synchronizovany s nepritelmi v mape
+    private List<Enemy> enemies;
     public Room(Map map, String roomID, String name, String description) {
         this.map = map;
         this.roomID = roomID;
@@ -32,13 +33,12 @@ public class Room {
                 MapObject mapObject = map.getMapObject(x, y);
 
                 if (mapObject instanceof Enemy) {
+                    // Pridame nepritele
                     Enemy enemy = (Enemy) mapObject;
                     if (!enemies.contains(enemy)) {
                         enemies.add(enemy);
                         enemy.setX(x);
                         enemy.setY(y);
-                    } else {
-                        map.addMapObject(x, y, new Floor());
                     }
                 }
             }
