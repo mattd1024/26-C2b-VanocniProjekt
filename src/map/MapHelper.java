@@ -17,7 +17,7 @@ public class MapHelper {
             return false;
         }
 
-        if (x > width || y > height) {
+        if (x >= width || y >= height) {
             return false;
         }
 
