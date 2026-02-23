@@ -1,6 +1,8 @@
 import game.Game;
 
-// Autor: Matěj David C2b
+/**
+ * @author Matěj David
+ */
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
