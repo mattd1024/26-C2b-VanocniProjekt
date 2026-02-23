@@ -13,7 +13,9 @@ public class HelpCommand implements Command {
         System.out.println("Dostupne komandy:");
         System.out.println("    attack x y               ==> Zautocis na nepritele na x y");
         System.out.println("    collect x y              ==> Sesbiras resupply na x y");
+        System.out.println("    door x y                 ==> Vstoupíš do dveří na x y a přesuneš se do jiné místnosti");
         System.out.println("    end                      ==> Ukoncis hru");
+        System.out.println("    escape x y               ==> Vstoupíš do únikové rakety a při dostatečném množstvím morkitu zvítězíš");
         System.out.println("    explore x y              ==> Vypise informace o predmetu na x y");
         System.out.println("    help                     ==> Vypiste tuto napovedu s komandama");
         System.out.println("    inventory                ==> Vypise vsechno co mas inventary");
