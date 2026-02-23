@@ -22,6 +22,11 @@ public class Inventory {
     private String activeWeapon;
     private int Ammo;
 
+    /**
+     * Prida mineral do inventare
+     * @param mineralType Typ rudy
+     * @param amount Pocet rudy
+     */
     public void addMineral(OreNode.MineralType mineralType, int amount) {
         switch (mineralType) {
             case NITRA:
@@ -49,6 +54,12 @@ public class Inventory {
         return null;
     }
 
+    /**
+     * Vejde se do inventare mnozstvi urciteho typu rudy
+     * @param amount Int pocet rudy
+     * @param mineralType MineralType typ rudy
+     * @return True/false
+     */
     public boolean canMine(int amount, OreNode.MineralType mineralType) {
         switch (mineralType) {
             case NITRA:

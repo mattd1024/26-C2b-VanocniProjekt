@@ -1,5 +1,6 @@
 package input.commands;
 
+import entities.Entity;
 import entities.Player;
 import game.Colors;
 import game.Console;
@@ -7,6 +8,7 @@ import input.Command;
 import inventory.Inventory;
 import map.Map;
 import map.MapHelper;
+import map.MapObject;
 import worldObjects.Floor;
 import worldObjects.Resupply;
 
@@ -42,25 +44,37 @@ public class CollectCommand implements Command {
 
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
-            Console.printError("Jsi moc daleko od zasobovaci rakety");
+            Console.printError("Jsi moc daleko");
             return null;
         }
 
-        // ZJistime jestli objekt na x y je resupply
-        if (map.getGrid()[y][x] instanceof Resupply) {
-            // Zjistime jestli hrac ma maximalni mnozstvi zivotu a naboju a pripadne odmitneme pozadavek
-            if (player.getHealth() == 100 && inventory.getAmmo() == 100) {
-                Console.printError("Jiz mas plne zivoty a naboje");
-            } else {
-                player.setHealth(100);
-                inventory.setAmmo(100);
-                map.addMapObject(x, y, new Floor());
-                Console.printColorMessage("Uspesne si sebral zasobovaci raketu", Colors.GREEN);
-            }
-        } else {
-            Console.printError("Na tomto miste neni zasobovaci raketa");
+        // Vezmeme entitu a zjistime jestli je resupply
+        MapObject mapObject = map.getMapObject(x, y);
+        if (!(mapObject instanceof Resupply)) {
+            Console.printError("Zde neni zasobovaci raketa");
+            return null;
+        }
+        Resupply resupply = (Resupply) mapObject;
+
+        // Zjistime jestli ma hrac jiz maximalni zdravi a naboje
+        if (player.getHealth() >= player.getMAX_HEALTH() && inventory.getAmmo() >= player.getMAX_AMMO()) {
+            Console.printError("Jiz mas plne zivoty i naboje.");
+            return null;
         }
 
-        return Result.CONTINUE;
+        // Doplnime hracovy zivoty a naboje
+        int newHealth = Math.min(player.getMAX_HEALTH(), player.getHealth() + resupply.getHealthAmount());
+        int newAmmo = Math.min(player.getMAX_AMMO(), inventory.getAmmo() + resupply.getAmmoAmount());
+
+        // Nastavime hodnoty
+        player.setHealth(newHealth);
+        inventory.setAmmo(newAmmo);
+
+        // Odstranime raketu
+        map.addMapObject(x, y, new Floor());
+
+        Console.printColorMessage("Uspesne si sebral zasobovaci raketu", Colors.GREEN);
+
+        return Result.END_TURN;
     }
 }

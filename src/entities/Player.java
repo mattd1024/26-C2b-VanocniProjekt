@@ -10,6 +10,10 @@ import worldObjects.OreNode;
  * Uzivatel za nej hraje
  */
 public class Player extends Entity{
+    private final int MAX_HEALTH = 100;
+    private final int MAX_AMMO = 100;
+    private final int MINE_FORCE = 80;
+
     private Inventory inventory;
     private String actualRoomID;
 
@@ -38,5 +42,17 @@ public class Player extends Entity{
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getMAX_HEALTH() {
+        return MAX_HEALTH;
+    }
+
+    public int getMAX_AMMO() {
+        return MAX_AMMO;
+    }
+
+    public int getMINE_FORCE() {
+        return MINE_FORCE;
     }
 }

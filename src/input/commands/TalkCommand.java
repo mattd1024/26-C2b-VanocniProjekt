@@ -1,13 +1,11 @@
 package input.commands;
 
-import entities.Entity;
-import entities.Friendly;
-import entities.Player;
-import entities.ShopBot;
+import entities.*;
 import game.Console;
 import input.Command;
 import map.Map;
 import map.MapHelper;
+import map.MapObject;
 
 /**
  * TalkCommand obsluhuje komunikaci mezi hracem a entitou (pouze Friendly nebo ShopBot)
@@ -44,11 +42,12 @@ public class TalkCommand implements Command {
         }
 
         // Vezmeme entitu a zjistime jestli existuje
-        Entity entity = (Entity) map.getMapObject(x, y);
-        if (entity == null) {
+        MapObject mapObject = map.getMapObject(x, y);
+        if (!(mapObject instanceof Entity)) {
             Console.printError("Zde neni entita");
             return null;
         }
+        Entity entity = (Entity) mapObject;
 
         // Pro Friendly
         if (entity instanceof Friendly) {
@@ -62,6 +61,6 @@ public class TalkCommand implements Command {
             }
         }
 
-        return Result.CONTINUE;
+        return Result.END_TURN;
     }
 }

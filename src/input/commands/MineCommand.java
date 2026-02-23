@@ -59,10 +59,11 @@ public class MineCommand implements Command {
         // Vytvorime objekty
         OreNode oreNode = (OreNode) mapObject;
         OreNode.MineralType typeOfOre = oreNode.getMineralType();
+        int oreAmount = oreNode.getAmount();
 
         // Muze hrac tezit? (ma plny inventar urciteho typu rudy?)
-        if (inventory.canMine(40, typeOfOre)) {
-            int mined = oreNode.mineOre(80);
+        if (inventory.canMine(oreAmount, typeOfOre)) {
+            int mined = oreNode.mineOre(player.getMINE_FORCE());
             inventory.addMineral(typeOfOre, mined);
             map.addMapObject(x, y, new Floor());
 
@@ -75,6 +76,6 @@ public class MineCommand implements Command {
             Console.printSpace();
         }
 
-        return Result.CONTINUE;
+        return Result.END_TURN;
     }
 }

@@ -47,6 +47,6 @@ public class ResupplyCommand implements Command {
         } else {
             Console.printError("Nemas dostatek nitry, potrebujes minimalne 80");
         }
-        return Result.CONTINUE;
+        return Result.END_TURN;
     }
 }

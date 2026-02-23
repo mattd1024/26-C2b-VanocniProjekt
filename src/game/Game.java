@@ -17,6 +17,7 @@ public class Game {
     private SaveManager saveManager;
     private WorldBuilder worldBuilder;
     private InputHandler inputHandler;
+
     public Game() {
         isRunning = true;
         saveManager = new SaveManager();
@@ -24,12 +25,17 @@ public class Game {
         inputHandler = new InputHandler();
     }
 
-    public void runGame() {
+    public void setUp() {
         // Pripraveni
         SaveData save = saveManager.loadGame("resources/save.json");
         roomManager = worldBuilder.buildRooms(save);
         player = worldBuilder.buildPlayer(save);
         worldBuilder.placePlayer(roomManager, player);
+    }
+
+    public void runGame() {
+        // Pripravit hru
+        setUp();
 
         // Hlavni herni smycka
         while (isRunning) {
@@ -76,28 +82,4 @@ public class Game {
             }
         }
     }
-
-    public void test() {
-//        roomManager.getRooms().get(0).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(1).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(2).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(3).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(4).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(5).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(6).getMap().printMap();
-//        System.out.println();
-//        roomManager.getRooms().get(7).getMap().printMap();
-//        System.out.println();
-    }
-
-
-
-
-
 }

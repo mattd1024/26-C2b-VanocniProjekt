@@ -1,11 +1,13 @@
 package input.commands;
 
+import entities.Entity;
 import entities.Player;
 import game.Colors;
 import game.Console;
 import input.Command;
 import map.Map;
 import map.MapHelper;
+import map.MapObject;
 import worldObjects.EscapeRocket;
 
 /**
@@ -38,16 +40,17 @@ public class EscapeCommand implements Command {
 
         // Pokud neni dost blizko
         if (dx > 1 || dy > 1) {
-            Console.printError("Jsi moc daleko od rakety");
+            Console.printError("Jsi moc daleko");
             return null;
         }
 
-        // Vezmeme objekt a zjistime jestli existuje
-        EscapeRocket rocket = (EscapeRocket) map.getMapObject(x, y);
-        if (rocket == null) {
+        // Vezmeme objekt a zjistime jestli je raketa
+        MapObject mapObject = map.getMapObject(x, y);
+        if (!(mapObject instanceof EscapeRocket)) {
             Console.printError("Zde neni raketa");
             return null;
         }
+        EscapeRocket escapeRocket = (EscapeRocket) mapObject;
 
         // Ma hrac dostatek morkitu?
         if (player.getInventory().getMorkiteAmount() >= 2) {

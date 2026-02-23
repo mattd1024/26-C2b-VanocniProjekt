@@ -5,7 +5,7 @@ import game.Colors;
 import map.Map;
 
 /**
- * Trida Enemy je nepritel
+ * Trida Enemy je nepritel, dokaze se pohybovat po mape a utocit na hrace
  */
 public class Enemy extends Entity{
     private EnemyBehavior enemyBehavior;
