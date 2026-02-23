@@ -1,5 +1,4 @@
 import entities.Player;
-import game.Game;
 import game.SaveManager;
 import game.WorldBuilder;
 import input.Command;
@@ -10,17 +9,14 @@ import input.commands.MoveCommand;
 import input.commands.ResupplyCommand;
 import inventory.Inventory;
 import inventory.items.Weapon;
-import map.Map;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import rooms.Room;
 import rooms.RoomManager;
 import save.SaveData;
 import worldObjects.OreNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class test {
+public class Test {
     Player player;
     Inventory inventory;
     InputHandler inputHandler;
@@ -43,7 +39,7 @@ public class test {
         worldBuilder.placePlayer(roomManager, player);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void setActiveWeaponTest() {
         inventory.addWeapon(new Weapon("Pistole", 2, 50, 2));
         inventory.setActiveWeapon("Pistole");
@@ -51,39 +47,39 @@ public class test {
         assertEquals("Pistole", inventory.getActiveWeaponID());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void addMineralTest() {
         inventory.addMineral(OreNode.MineralType.NITRA, 80);
 
         assertEquals(80, inventory.getNitraAmount());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void killPlayerTest() {
         player.takeDamage(Integer.MAX_VALUE);
         assertFalse(player.isAlive());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void unknownCommandTest() {
         assertNull(doCommand("jablecny dzus"));
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void doorCommandInputHandlerTest() {
         Command command = doCommand("door 9 2");
 
         assertInstanceOf(DoorCommand.class, command);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void moveCommandInputHandlerTest() {
         Command command = doCommand("das");
 
         assertInstanceOf(MoveCommand.class, command);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void moveToRoom02Test() {
         MoveCommand moveCommand = (MoveCommand) doCommand("d");
         for (int i = 0 ; i < 8 ; i++) {
@@ -96,7 +92,7 @@ public class test {
         assertEquals("room02", roomManager.getCurrentRoomID());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void collectCommandTest() {
         ResupplyCommand resupplyCommand = (ResupplyCommand) doCommand("resupply 0 1");
         resupplyCommand.execute();
