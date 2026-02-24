@@ -27,8 +27,8 @@ public class WorldBuilder {
 
     /**
      * Procesuje mistnosti v SaveData objektu a vraci hotovy objekt RoomManager
-     * @param save
-     * @return
+     * @param save SaveData save
+     * @return  RoomManager
      */
     public RoomManager buildRooms(SaveData save) {
         RoomManager roomManager = new RoomManager();
@@ -160,7 +160,7 @@ public class WorldBuilder {
             case 'X':
                 return mapObject = new EscapeRocket();
             default:
-                throw new IllegalArgumentException("V .json souboru je neznamy charakter: " + letter);
+                throw new IllegalArgumentException("V mape u mistnosti .json souboru je neznamy charakter: " + letter);
         }
     }
 
@@ -190,7 +190,7 @@ public class WorldBuilder {
                 String message = overwrite.getState().get("message").toString();
                 return newMapObject = new Friendly(name, message);
             default:
-                throw new  IllegalArgumentException("Unknown overwrite type in .json save file");
+                throw new  IllegalArgumentException("Neznamy typ overwritu v .json souboru");
         }
     }
 }

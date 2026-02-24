@@ -21,6 +21,9 @@ public class Friendly extends Entity {
         this.message = message;
     }
 
+    /**
+     * Mluveni s pratelskym charakterem, printi string pritele
+     */
     public void talk() {
         System.out.println();
         Console.printColorMessage(name + " >>", Colors.GREEN);

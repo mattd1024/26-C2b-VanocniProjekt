@@ -33,6 +33,10 @@ public class SaveManager {
         return save;
     }
 
+    /**
+     * Uklada hru do .json souboru
+     * @param path String cesta k souboru
+     */
     public void saveGame(String path) {
 
     }
