@@ -133,7 +133,7 @@ public class Map {
             }
 
             MapObject mapObject = getMapObject(x1, y1);
-            if (!mapObject.isWalkable() || !mapObject.isSeeThrough()) {
+            if (!mapObject.isSeeThrough()) {
                 return false;
             }
         }

@@ -65,6 +65,12 @@ public class AttackCommand implements Command {
             return null;
         }
 
+        // Muze hrac nepritele videt
+        if (!map.canSee(player.getX(), player.getY(), target.getX(), target.getY())) {
+            Console.printError("Nepritel nemuze byt viden");
+            return null;
+        }
+
         // Ma hrac dostatek munice
         if (activeWeapon.getAmmoConsumption() > 0) {
             if (player.getInventory().getAmmo() < activeWeapon.getAmmoConsumption()) {
