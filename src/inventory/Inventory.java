@@ -85,6 +85,18 @@ public class Inventory {
         return activeWeapon;
     }
 
+    public int getMAX_NITRA() {
+        return MAX_NITRA;
+    }
+
+    public int getMAX_GOLD() {
+        return MAX_GOLD;
+    }
+
+    public int getMAX_MORKITE() {
+        return MAX_MORKITE;
+    }
+
     public int getNitraAmount() {
         return NitraAmount;
     }

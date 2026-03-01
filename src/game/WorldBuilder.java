@@ -152,7 +152,7 @@ public class WorldBuilder {
             case 'M':
                 return mapObject = new OreNode(MORKITE);
             case 'R':
-                return mapObject = new Resupply(100, 100);
+                return mapObject = new Resupply();
             case 'D':
                 return mapObject = new Door();
             case 'F':

@@ -3,6 +3,7 @@ package game;
 import com.google.gson.Gson;
 import save.SaveData;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -27,17 +28,9 @@ public class SaveManager {
 
         try(Reader reader = new FileReader(filePath)) {
             save = gson.fromJson(reader, SaveData.class);
-        } catch(IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException("Nenalezen .json soubor, cesta: " + filePath);
         }
         return save;
-    }
-
-    /**
-     * Uklada hru do .json souboru
-     * @param path String cesta k souboru
-     */
-    public void saveGame(String path) {
-
     }
 }

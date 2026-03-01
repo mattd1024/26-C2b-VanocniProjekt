@@ -41,9 +41,9 @@ public class ResupplyCommand implements Command {
         }
 
         // Zjistime jestli ma dostatek nitry a pripadne vlozime resupply do mapy
-        if (inventory.getNitraAmount() >= 80) {
-            inventory.setNitraAmount(inventory.getNitraAmount() - 80);
-            map.addMapObject(x, y, new Resupply(100, 100));
+        if (inventory.getNitraAmount() >= inventory.getMAX_NITRA()) {
+            inventory.setNitraAmount(inventory.getNitraAmount() - inventory.getMAX_NITRA());
+            map.addMapObject(x, y, new Resupply());
         } else {
             Console.printError("Nemas dostatek nitry, potrebujes minimalne 80");
         }

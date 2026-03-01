@@ -26,7 +26,7 @@ public class ShopBot extends Entity{
 
     /**
      * Promluveni s hracem a obchod botem
-     * @param player Player player
+     * @param player Player
      */
     public void talk(Player player) {
         Console.printColorMessage("Vitej v mem obchode! Zadej jmeno produktu, ktery chces zakoupit >>", Colors.GREEN);

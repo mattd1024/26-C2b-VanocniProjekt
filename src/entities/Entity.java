@@ -8,6 +8,7 @@ import map.MapObject;
 public class Entity extends MapObject {
     protected String name;
     protected int health;
+    protected final int MAX_HEALTH = 100;
 
     public void takeDamage(int dmgAmount) {
         health -= dmgAmount;
@@ -34,5 +35,9 @@ public class Entity extends MapObject {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getMAX_HEALTH() {
+        return MAX_HEALTH;
     }
 }

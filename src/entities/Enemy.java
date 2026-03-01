@@ -9,14 +9,16 @@ import map.Map;
  */
 public class Enemy extends Entity{
     private EnemyBehavior enemyBehavior;
+    private int damage;
 
     public Enemy() {
         description = "Nepritel pavouk: zbranema ho musis zneskodnit";
-        this.health = 100;
+        this.health = MAX_HEALTH;
         icon = Colors.RED+"E "+Colors.RESET;
         isWalkable = false;
         isSeeThrough = false;
-        enemyBehavior = new EnemyBehavior(20);
+        damage = 20;
+        enemyBehavior = new EnemyBehavior(damage);
     }
 
     public Enemy(int health) {
