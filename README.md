@@ -48,15 +48,16 @@ talk x y                 ==> Promluvíš s postavou na x y
 
 ## 💻 Jak hru spustit
 Hru lze spustit několika způsoby:
-- Klonujte repozitář do svého oblíbeného editoru podporující javu a spusťtě třídu Main.java v něm
-- Stáhněte si soubor SutrKamen z projektu a v něm přes konzoli spustťe .jar soubor
-komandem `java -jar SutrKamen.jar`
 
-   > [!IMPORTANT]
-   > Pro tento krok je nutné mít funkční javu v konzoli\
-   > V projektu je využita Java 21
+### Klonováním do editoru
+- Klonujte repozitář do svého oblíbeného editoru podporující javu a v něm spusťtě třídu Main.java v src
 
-## 📦 Použité balíky
+### .JAR
+- Ujistěte se, že u souboru SutrKamen.jar se nachází celý soubor resources/save.json
+- Spusťte SutrKamen.jar pomocí komandu `java -jar SutrKamen.jar`
+- Pro tento krok je nutné mít funkční javu v konzoli
+
+## 📦 Použité balíčky
 [GSON](https://github.com/google/gson) pro načítaní úložného souboru typu .json
 
 [JUnit](https://github.com/junit-team/junit-framework/) pro testy
